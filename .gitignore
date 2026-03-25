@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node / frontend tooling
+node_modules/
+dist/
+build/
+coverage/
+
+# Logs
+*.log
