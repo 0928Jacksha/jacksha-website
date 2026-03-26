@@ -20,7 +20,10 @@
   --duration-fast: var(--duration-micro);
   --duration-base: 200ms;
   --duration-scene: 300ms;
+  --duration-slow: 420ms;
+  --duration-image: 520ms;
   --ease-soft: cubic-bezier(0.2, 0.65, 0.25, 1);
+  --ease-emphasized: cubic-bezier(0.16, 0.84, 0.24, 1);
   --interactive-shift: -2px;
   --interactive-border: rgba(152, 140, 120, 0.34);
   --interactive-bg: rgba(255, 255, 255, 0.28);
@@ -44,6 +47,11 @@ html[lang="zh-CN"] {
   --font-ui: var(--font-ui-zh);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -52,11 +60,13 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.72;
-  letter-spacing: 0.002em;
+  line-height: 1.74;
+  letter-spacing: 0.003em;
   color: var(--text);
   background: var(--bg);
   font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -74,7 +84,8 @@ a {
   transition:
     color var(--duration-fast) var(--ease-soft),
     text-decoration-color var(--duration-fast) var(--ease-soft),
-    opacity var(--duration-fast) var(--ease-soft);
+    opacity var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
 }
 
 a:hover {
@@ -148,6 +159,7 @@ body[data-page="home"] .site-header.is-scrolled {
 }
 
 .nav a {
+  position: relative;
   font-family: var(--font-ui);
   font-size: 0.78rem;
   letter-spacing: 0.05em;
@@ -156,12 +168,37 @@ body[data-page="home"] .site-header.is-scrolled {
   text-decoration: none;
   transition:
     color var(--duration-fast) var(--ease-soft),
-    opacity var(--duration-fast) var(--ease-soft);
+    opacity var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
 }
 
 .nav a:hover {
   color: #4a463f;
   opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: left center;
+  transition:
+    opacity var(--duration-fast) var(--ease-soft),
+    transform var(--duration-base) var(--ease-soft);
+}
+
+.nav a:hover::after,
+.nav a:focus-visible::after,
+.nav a[aria-current="page"]::after {
+  opacity: 0.82;
+  transform: scaleX(1);
 }
 
 .lang-toggle {
@@ -185,12 +222,16 @@ body[data-page="home"] .site-header.is-scrolled {
   transition:
     color var(--duration-fast) var(--ease-soft),
     border-color var(--duration-fast) var(--ease-soft),
-    opacity var(--duration-fast) var(--ease-soft);
+    opacity var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
 }
 
 .lang-toggle button:hover {
   border-color: var(--border-soft);
   color: #4a463f;
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .lang-toggle button.is-active {
@@ -618,6 +659,7 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
   overflow: visible;
   opacity: 0;
   transform: translateY(24px);
+  will-change: opacity, transform;
   transition:
     opacity 900ms cubic-bezier(0.2, 0.65, 0.25, 1),
     transform 900ms cubic-bezier(0.2, 0.65, 0.25, 1);
@@ -673,6 +715,19 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
   background: rgba(18, 17, 19, 0.74);
   display: grid;
   gap: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity var(--duration-slow) var(--ease-emphasized),
+    transform var(--duration-slow) var(--ease-emphasized),
+    border-color var(--duration-base) var(--ease-soft),
+    background-color var(--duration-base) var(--ease-soft);
+}
+
+.travel-globe-shell.is-visible .travel-globe-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 120ms;
 }
 
 .travel-globe-panel .panel-kicker {
@@ -763,11 +818,21 @@ html[lang="zh-CN"] .continent-zh {
   gap: 2px;
   padding-top: 10px;
   border-top: 1px solid var(--border-soft);
+  transition:
+    border-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft),
+    opacity var(--duration-fast) var(--ease-soft);
 }
 
 .visited-country-list li:first-child {
   padding-top: 0;
   border-top: 0;
+}
+
+.visited-country-list li:hover,
+.visited-country-list li:focus-within {
+  border-top-color: rgba(245, 239, 226, 0.42);
+  transform: translateX(2px);
 }
 
 .visited-continent-card.is-wide .visited-country-list {
@@ -853,7 +918,7 @@ html[lang="zh-CN"] .country-zh {
 .hero h1 {
   margin: 0 0 var(--space-3);
   font-size: clamp(2.2rem, 4.6vw, 3.5rem);
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.01em;
   font-weight: 500;
   text-wrap: balance;
@@ -878,14 +943,14 @@ html[lang="zh-CN"] .country-zh {
 
 .section .container {
   display: grid;
-  gap: var(--space-3);
+  gap: clamp(16px, 2.2vw, var(--space-3));
 }
 
 .section h2 {
   margin: 0;
   font-family: var(--font-ui);
   font-size: 0.86rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--muted);
   line-height: 1.4;
@@ -968,8 +1033,8 @@ main h3:not(.sr-only):hover::after,
 h3 {
   margin: 0 0 var(--space-1);
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  line-height: 1.4;
+  font-size: clamp(1.14rem, 2.1vw, 1.3rem);
+  line-height: 1.36;
   font-weight: 500;
   letter-spacing: -0.004em;
   text-wrap: balance;
@@ -978,6 +1043,7 @@ h3 {
 p {
   margin: 0 0 var(--space-3);
   max-width: var(--measure);
+  line-height: 1.75;
   text-wrap: pretty;
 }
 
@@ -988,7 +1054,7 @@ p:last-child {
 .meta {
   color: var(--muted);
   font-size: 0.94rem;
-  line-height: 1.7;
+  line-height: 1.73;
 }
 
 .email-copy-link {
@@ -1076,13 +1142,15 @@ p:last-child {
   transition:
     border-color var(--duration-fast) var(--ease-soft),
     background-color var(--duration-fast) var(--ease-soft),
-    color var(--duration-fast) var(--ease-soft);
+    color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
 }
 
 .social-action-link:hover,
 .social-action-button:hover {
   border-color: var(--border);
   background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
 }
 
 .social-card.is-share-open .social-action-button {
@@ -1138,11 +1206,16 @@ p:last-child {
   font-size: 0.7rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  transition:
+    border-color var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft);
 }
 
 .social-share-action:hover {
   border-color: var(--border);
   background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
 }
 
 .social-share-action.is-copied {
@@ -1291,13 +1364,23 @@ button,
   transition:
     color var(--duration-fast) var(--ease-soft),
     border-color var(--duration-fast) var(--ease-soft),
-    background-color var(--duration-fast) var(--ease-soft);
+    background-color var(--duration-fast) var(--ease-soft),
+    transform var(--duration-fast) var(--ease-soft),
+    box-shadow var(--duration-fast) var(--ease-soft);
 }
 
 button:hover,
 .gallery-enter-button:hover {
   border-color: var(--border);
   background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(31, 27, 20, 0.1);
+}
+
+button:active,
+.gallery-enter-button:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .gallery-enter-wrap {
@@ -1414,6 +1497,19 @@ button:hover,
     background-color var(--duration-base) var(--ease-soft);
 }
 
+.gallery-item.is-loading {
+  background:
+    linear-gradient(
+      110deg,
+      rgba(245, 239, 226, 0.04) 8%,
+      rgba(245, 239, 226, 0.1) 18%,
+      rgba(245, 239, 226, 0.04) 33%
+    )
+    rgba(12, 11, 11, 0.5);
+  background-size: 220% 100%;
+  animation: gallery-skeleton 1.8s ease-in-out infinite;
+}
+
 .gallery-item--anchor {
   grid-column: span 2;
   aspect-ratio: 16 / 10;
@@ -1483,6 +1579,20 @@ button:hover,
     filter var(--duration-base) var(--ease-soft);
 }
 
+.gallery-item img.is-pending,
+.gallery-full-item img.is-pending {
+  opacity: 0.01;
+  transform: scale(1.02);
+  filter: saturate(0.86) contrast(0.92) blur(1.2px);
+}
+
+.gallery-item img.is-ready,
+.gallery-full-item img.is-ready {
+  opacity: 1;
+  transform: scale(1);
+  filter: saturate(1) contrast(1);
+}
+
 .gallery-item-meta {
   position: absolute;
   inset: auto 0 0 0;
@@ -1516,6 +1626,12 @@ button:hover,
   opacity: 0.992;
   transform: scale(1.015);
   filter: contrast(1.02);
+}
+
+.gallery-item.is-loading img.is-pending {
+  opacity: 0.01;
+  transform: scale(1.02);
+  filter: saturate(0.86) contrast(0.92) blur(1.2px);
 }
 
 .section-gallery-full {
@@ -1572,6 +1688,19 @@ button:hover,
     transform var(--duration-base) var(--ease-soft),
     border-color var(--duration-base) var(--ease-soft),
     background-color var(--duration-base) var(--ease-soft);
+}
+
+.gallery-full-item.is-loading {
+  background:
+    linear-gradient(
+      110deg,
+      rgba(245, 239, 226, 0.04) 8%,
+      rgba(245, 239, 226, 0.1) 18%,
+      rgba(245, 239, 226, 0.04) 33%
+    )
+    rgba(12, 11, 11, 0.5);
+  background-size: 220% 100%;
+  animation: gallery-skeleton 1.8s ease-in-out infinite;
 }
 
 .gallery-full-item::before {
@@ -1730,6 +1859,12 @@ button:hover,
   filter: contrast(1.02);
 }
 
+.gallery-full-item.is-loading img.is-pending {
+  opacity: 0.01;
+  transform: scale(1.02);
+  filter: saturate(0.86) contrast(0.92) blur(1.2px);
+}
+
 .gallery-lightbox {
   position: fixed;
   inset: 0;
@@ -1793,6 +1928,20 @@ button:hover,
   max-height: min(80vh, 900px);
   object-fit: contain;
   background: rgba(0, 0, 0, 0.26);
+  opacity: 1;
+  transition:
+    opacity var(--duration-image) var(--ease-emphasized),
+    filter var(--duration-image) var(--ease-emphasized);
+}
+
+.gallery-lightbox-figure img.is-pending {
+  opacity: 0.01;
+  filter: blur(1.3px) saturate(0.84);
+}
+
+.gallery-lightbox-figure img.is-ready {
+  opacity: 1;
+  filter: none;
 }
 
 .gallery-lightbox-meta {
@@ -1844,6 +1993,10 @@ button:hover,
   min-height: 36px;
   padding: 6px 10px;
   line-height: 1;
+  transition:
+    transform var(--duration-fast) var(--ease-soft),
+    border-color var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft);
 }
 
 .gallery-lightbox-close span {
@@ -1856,11 +2009,29 @@ button:hover,
   padding: 8px 10px;
   font-size: 1.08rem;
   line-height: 1;
+  transition:
+    transform var(--duration-fast) var(--ease-soft),
+    border-color var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft);
+}
+
+.gallery-lightbox-close:hover,
+.gallery-lightbox-nav:hover {
+  transform: translateY(-1px);
 }
 
 .gallery-lightbox-nav[disabled] {
   opacity: 0.4;
   cursor: default;
+}
+
+@keyframes gallery-skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 body.is-lightbox-open {
@@ -1944,6 +2115,7 @@ body.is-lightbox-open {
 @media (max-width: 900px) {
   :root {
     --gap: 24px;
+    --space-3: 18px;
     --space-5: 40px;
     --space-6: 56px;
   }
@@ -1956,6 +2128,12 @@ body.is-lightbox-open {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
+  .hero-home {
+    background-image:
+      linear-gradient(180deg, rgba(18, 18, 18, 0.18) 0%, rgba(18, 18, 18, 0.52) 62%, rgba(18, 18, 18, 0.72) 100%),
+      url("../images/home-hero-optimized-mobile.jpg");
+  }
+
   .travel-visual {
     height: 280vh;
   }
@@ -1965,10 +2143,12 @@ body.is-lightbox-open {
   }
 
   .travel-visual-layer-a {
+    background-image: url("../images/travel-visual-a-mobile.jpg");
     background-position: 54% 42%;
   }
 
   .travel-visual-layer-b {
+    background-image: url("../images/travel-visual-b-mobile.jpg");
     background-position: 52% 40%;
   }
 
@@ -1979,10 +2159,12 @@ body.is-lightbox-open {
   }
 
   .photo-visual-layer-a {
+    background-image: url("../images/photo-visual-a-mobile.jpg");
     background-position: 52% 48%;
   }
 
   .photo-visual-layer-b {
+    background-image: url("../images/photo-visual-b-mobile.jpg");
     background-position: 51% 50%;
   }
 
@@ -2052,6 +2234,8 @@ body.is-lightbox-open {
 
 @media (max-width: 640px) {
   :root {
+    --gap: 18px;
+    --space-3: 16px;
     --space-4: 24px;
     --space-5: 32px;
     --space-6: 40px;
@@ -2063,11 +2247,17 @@ body.is-lightbox-open {
 
   .hero h1 {
     font-size: clamp(1.7rem, 8.2vw, 2.3rem);
+    line-height: 1.12;
+  }
+
+  .hero .meta {
+    font-size: 0.96rem;
+    line-height: 1.72;
   }
 
   .nav {
     gap: 0;
-    padding: 12px 0;
+    padding: 11px 0;
   }
 
   .nav-toggle {
@@ -2087,7 +2277,7 @@ body.is-lightbox-open {
     border-top: 1px solid var(--border-soft);
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
 
   .nav.is-open .nav-menu {
@@ -2124,7 +2314,7 @@ body.is-lightbox-open {
   .hero-home {
     min-height: 100vh;
     min-height: 100svh;
-    padding: clamp(124px, 19vh, 158px) 0 clamp(62px, 11vh, 98px);
+    padding: clamp(124px, 18vh, 158px) 0 clamp(56px, 10vh, 92px);
     background-position: 56% 38%;
   }
 
@@ -2204,6 +2394,10 @@ body.is-lightbox-open {
     padding: var(--space-2);
   }
 
+  .section {
+    padding: clamp(26px, 8vw, 40px) 0;
+  }
+
   .lang-toggle {
     width: 100%;
     margin-left: 0;
@@ -2266,7 +2460,7 @@ body.is-lightbox-open {
   .gallery-lightbox-frame {
     width: 100%;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
   .gallery-lightbox-close {
@@ -2302,6 +2496,10 @@ body.is-lightbox-open {
 }
 
 @media (max-width: 460px) {
+  :root {
+    --space-3: 14px;
+  }
+
   .gallery-full-grid {
     grid-template-columns: 1fr;
   }
@@ -2313,6 +2511,10 @@ body.is-lightbox-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   a,
   .card,
   button,
@@ -2329,6 +2531,10 @@ body.is-lightbox-open {
   main h1:not(.sr-only)::after,
   main h2:not(.sr-only)::after,
   main h3:not(.sr-only)::after {
+    transition: none;
+  }
+
+  .nav a::after {
     transition: none;
   }
 
@@ -2349,6 +2555,11 @@ body.is-lightbox-open {
   .gallery-lightbox,
   .gallery-lightbox-frame {
     transition: none;
+  }
+
+  .gallery-item.is-loading,
+  .gallery-full-item.is-loading {
+    animation: none;
   }
 
   .card:not(form):hover,

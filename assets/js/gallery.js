@@ -11,21 +11,25 @@
   const PRIORITY_IMAGE_COUNT = 4;
   const EAGER_SOURCE_COUNT = 6;
   const OBSERVER_ROOT_MARGIN = "360px 0px";
+  const SWIPE_DISTANCE_THRESHOLD = 52;
+  const SWIPE_VERTICAL_TOLERANCE = 86;
+  const LIGHTBOX_FOCUSABLE_SELECTOR =
+    'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
   const CURATED_IMAGE_SEQUENCE = [
     "photo1-optimized.jpg",
     "photo6-optimized.jpg",
-    "DSC00186.jpeg",
-    "IMG_9816.JPG",
+    "DSC00186-optimized.jpg",
+    "IMG_9816-optimized.jpg",
     "photo4-optimized.jpg",
-    "IMG_2959.jpeg",
-    "IMG_2237.jpeg",
+    "IMG_2959-optimized.jpg",
+    "IMG_2237-optimized.jpg",
     "photo7-optimized.jpg",
     "photo5-optimized.jpg",
-    "IMG_1885.jpeg",
-    "IMG_3905.jpeg",
+    "IMG_1885-optimized.jpg",
+    "IMG_3905-optimized.jpg",
     "photo3-optimized.jpg",
-    "IMG_2846.jpeg",
-    "IMG_3308.jpeg"
+    "IMG_2846-optimized.jpg",
+    "IMG_3308-optimized.jpg"
   ];
   // Default gap handling for the top gallery composition:
   // keep the right-side column visually full with an editorial note panel.
@@ -327,6 +331,46 @@
     return applyCuratedSequence(normalizeImageList(payload.images));
   }
 
+  function getConnectionHints() {
+    const connection =
+      navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const saveData = Boolean(connection && connection.saveData);
+    const effectiveType = connection && typeof connection.effectiveType === "string"
+      ? connection.effectiveType
+      : "";
+    const isConstrained = /(^|[^a-z])(2g|slow-2g)([^a-z]|$)/i.test(effectiveType);
+    return {
+      saveData,
+      isConstrained
+    };
+  }
+
+  function getRenderConfig() {
+    const hints = getConnectionHints();
+
+    if (hints.saveData) {
+      return {
+        initialRenderBatch: 5,
+        renderBatchSize: 6,
+        observerRootMargin: "220px 0px"
+      };
+    }
+
+    if (hints.isConstrained) {
+      return {
+        initialRenderBatch: 6,
+        renderBatchSize: 8,
+        observerRootMargin: "260px 0px"
+      };
+    }
+
+    return {
+      initialRenderBatch: INITIAL_RENDER_BATCH,
+      renderBatchSize: RENDER_BATCH_SIZE,
+      observerRootMargin: OBSERVER_ROOT_MARGIN
+    };
+  }
+
   function initGallery() {
     const grid = document.querySelector("[data-gallery-grid]");
     if (!grid) return;
@@ -340,6 +384,7 @@
     const lightboxTitle = document.querySelector("[data-gallery-lightbox-title]");
     const lightboxLocation = document.querySelector("[data-gallery-lightbox-location]");
     const lightboxCaption = document.querySelector("[data-gallery-lightbox-caption]");
+    const lightboxFigure = lightboxImage ? lightboxImage.closest(".gallery-lightbox-figure") : null;
     const closeControls = document.querySelectorAll("[data-gallery-lightbox-close]");
     const closeButton = document.querySelector(".gallery-lightbox-close");
     const prevButton = document.querySelector("[data-gallery-prev]");
@@ -355,6 +400,7 @@
       !lightboxTitle ||
       !lightboxLocation ||
       !lightboxCaption ||
+      !lightboxFigure ||
       !closeControls.length ||
       !closeButton ||
       !prevButton ||
@@ -371,6 +417,13 @@
     let imageObserver = null;
     let pendingRenderFrame = 0;
     let topFeatureNote = null;
+    const renderConfig = getRenderConfig();
+    let lightboxRequestId = 0;
+    let swipePointerId = null;
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+
+    lightbox.setAttribute("aria-hidden", "true");
 
     function toImageRecord(filename) {
       const fallbackLabel = toImageLabel(filename);
@@ -400,19 +453,75 @@
       preloadedUrls.add(record.url);
     }
 
-    function setImageSource(imageElement) {
+    function setImagePendingState(imageElement, frameElement) {
+      if (!imageElement) return;
+      imageElement.classList.remove("is-ready");
+      imageElement.classList.add("is-pending");
+      if (frameElement) {
+        frameElement.classList.add("is-loading");
+      }
+    }
+
+    function setImageReadyState(imageElement, frameElement) {
+      if (!imageElement) return;
+      imageElement.classList.remove("is-pending");
+      imageElement.classList.add("is-ready");
+      if (frameElement) {
+        frameElement.classList.remove("is-loading");
+      }
+    }
+
+    function prepareImageForReveal(imageElement, frameElement) {
+      if (!imageElement) return;
+
+      const finalize = () => {
+        setImageReadyState(imageElement, frameElement);
+      };
+
+      if (imageElement.complete) {
+        finalize();
+        return;
+      }
+
+      let settled = false;
+      const complete = () => {
+        if (settled) return;
+        settled = true;
+        if (typeof imageElement.decode === "function") {
+          imageElement
+            .decode()
+            .catch(() => {})
+            .finally(finalize);
+          return;
+        }
+        finalize();
+      };
+
+      const fail = () => {
+        if (settled) return;
+        settled = true;
+        finalize();
+      };
+
+      imageElement.addEventListener("load", complete, { once: true });
+      imageElement.addEventListener("error", fail, { once: true });
+    }
+
+    function setImageSource(imageElement, frameElement) {
       if (!imageElement) return;
       const pendingSrc = imageElement.dataset.src;
       if (!pendingSrc) return;
+      setImagePendingState(imageElement, frameElement);
       imageElement.src = pendingSrc;
       imageElement.removeAttribute("data-src");
+      prepareImageForReveal(imageElement, frameElement);
     }
 
-    function observeImage(imageElement) {
+    function observeImage(imageElement, frameElement) {
       if (!imageElement) return;
       if (!imageElement.dataset.src) return;
       if (!imageObserver) {
-        setImageSource(imageElement);
+        setImageSource(imageElement, frameElement);
         return;
       }
       imageObserver.observe(imageElement);
@@ -426,11 +535,54 @@
       preloadImage(getImageRecord(prevIndex));
     }
 
+    function setLightboxImage(record) {
+      if (!record) return;
+      lightboxRequestId += 1;
+      const requestId = lightboxRequestId;
+      let settled = false;
+
+      const finalize = () => {
+        if (settled || requestId !== lightboxRequestId) return;
+        settled = true;
+        lightboxImage.classList.remove("is-pending");
+        lightboxImage.classList.add("is-ready");
+      };
+
+      const complete = () => {
+        if (settled || requestId !== lightboxRequestId) return;
+        if (typeof lightboxImage.decode === "function") {
+          lightboxImage
+            .decode()
+            .catch(() => {})
+            .finally(finalize);
+          return;
+        }
+        finalize();
+      };
+
+      const fail = () => {
+        if (settled || requestId !== lightboxRequestId) return;
+        settled = true;
+        lightboxImage.classList.remove("is-pending");
+        lightboxImage.classList.add("is-ready");
+      };
+
+      lightboxImage.classList.remove("is-ready");
+      lightboxImage.classList.add("is-pending");
+      lightboxImage.alt = record.title;
+      lightboxImage.addEventListener("load", complete, { once: true });
+      lightboxImage.addEventListener("error", fail, { once: true });
+      lightboxImage.src = record.url;
+
+      if (lightboxImage.complete) {
+        complete();
+      }
+    }
+
     function syncLightbox() {
       const record = getImageRecord(activeIndex);
       if (!record) return;
-      lightboxImage.src = record.url;
-      lightboxImage.alt = record.title;
+      setLightboxImage(record);
       lightboxCount.textContent = `${activeIndex + 1} / ${imageRecords.length}`;
       lightboxTitle.textContent = record.title;
       lightboxCaption.textContent = record.caption || record.label;
@@ -454,6 +606,7 @@
       activeTrigger = trigger || null;
       syncLightbox();
       lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
       requestAnimationFrame(() => {
         lightbox.classList.add("is-open");
       });
@@ -464,7 +617,9 @@
     function closeLightbox() {
       if (lightbox.hidden) return;
       lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
       document.body.classList.remove("is-lightbox-open");
+      clearSwipe();
       if (closeTimer) {
         window.clearTimeout(closeTimer);
       }
@@ -482,6 +637,67 @@
       if (activeIndex === -1 || !imageRecords.length) return;
       activeIndex = wrapIndex(activeIndex + step, imageRecords.length);
       syncLightbox();
+    }
+
+    function trapLightboxFocus(event) {
+      if (event.key !== "Tab") return;
+
+      const focusable = Array.from(
+        lightbox.querySelectorAll(LIGHTBOX_FOCUSABLE_SELECTOR)
+      ).filter((element) => {
+        if (!(element instanceof HTMLElement)) return false;
+        if (element.hidden) return false;
+        if (element.getAttribute("aria-hidden") === "true") return false;
+        if (element.tabIndex < 0) return false;
+        return true;
+      });
+
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+        return;
+      }
+
+      if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    function startSwipe(event) {
+      if (event.pointerType === "mouse") return;
+      swipePointerId = event.pointerId;
+      swipeStartX = event.clientX;
+      swipeStartY = event.clientY;
+    }
+
+    function clearSwipe() {
+      swipePointerId = null;
+      swipeStartX = 0;
+      swipeStartY = 0;
+    }
+
+    function endSwipe(event) {
+      if (swipePointerId === null || event.pointerId !== swipePointerId) return;
+
+      const deltaX = event.clientX - swipeStartX;
+      const deltaY = Math.abs(event.clientY - swipeStartY);
+      clearSwipe();
+
+      if (deltaY > SWIPE_VERTICAL_TOLERANCE) return;
+      if (Math.abs(deltaX) < SWIPE_DISTANCE_THRESHOLD) return;
+
+      if (deltaX < 0) {
+        moveLightbox(1);
+        return;
+      }
+      moveLightbox(-1);
     }
 
     function createGalleryItem(record, index) {
@@ -507,8 +723,10 @@
       image.alt = record.label;
       image.loading = "lazy";
       image.decoding = "async";
+      setImagePendingState(image, button);
       if (index < EAGER_SOURCE_COUNT) {
         image.src = record.url;
+        prepareImageForReveal(image, button);
       } else {
         image.dataset.src = record.url;
       }
@@ -551,7 +769,7 @@
 
       const anchorItem = createGalleryItem(records[0], 0);
       anchorItem.button.classList.add("gallery-full-item--top-anchor");
-      observeImage(anchorItem.image);
+      observeImage(anchorItem.image, anchorItem.button);
       topGroup.appendChild(anchorItem.button);
 
       const portraitGroup = document.createElement("div");
@@ -560,7 +778,7 @@
       for (let index = 1; index < 3; index += 1) {
         const portraitItem = createGalleryItem(records[index], index);
         portraitItem.button.classList.add("gallery-full-item--top-portrait");
-        observeImage(portraitItem.image);
+        observeImage(portraitItem.image, portraitItem.button);
         portraitGroup.appendChild(portraitItem.button);
       }
 
@@ -584,7 +802,7 @@
 
       for (let index = startIndex; index < end; index += 1) {
         const { button, image } = createGalleryItem(records[index], index);
-        observeImage(image);
+        observeImage(image, button);
         fragment.appendChild(button);
       }
 
@@ -611,11 +829,11 @@
         renderedCount = 3;
       }
 
-      const initialBatchSize = Math.max(0, INITIAL_RENDER_BATCH - renderedCount);
+      const initialBatchSize = Math.max(0, renderConfig.initialRenderBatch - renderedCount);
       renderedCount = appendImageBatch(records, renderedCount, initialBatchSize);
 
       function flushRemaining() {
-        renderedCount = appendImageBatch(records, renderedCount, RENDER_BATCH_SIZE);
+        renderedCount = appendImageBatch(records, renderedCount, renderConfig.renderBatchSize);
         if (renderedCount < records.length) {
           pendingRenderFrame = window.requestAnimationFrame(flushRemaining);
           return;
@@ -629,21 +847,27 @@
     }
 
     document.addEventListener("keydown", (event) => {
-      if (lightbox.hidden) return;
+      if (lightbox.hidden || !lightbox.classList.contains("is-open")) return;
+
       if (event.key === "Escape") {
         event.preventDefault();
         closeLightbox();
         return;
       }
+
       if (event.key === "ArrowRight") {
         event.preventDefault();
         moveLightbox(1);
         return;
       }
+
       if (event.key === "ArrowLeft") {
         event.preventDefault();
         moveLightbox(-1);
+        return;
       }
+
+      trapLightboxFocus(event);
     });
 
     closeControls.forEach((button) => {
@@ -651,6 +875,10 @@
     });
     prevButton.addEventListener("click", () => moveLightbox(-1));
     nextButton.addEventListener("click", () => moveLightbox(1));
+    lightboxFigure.addEventListener("pointerdown", startSwipe);
+    lightboxFigure.addEventListener("pointerup", endSwipe);
+    lightboxFigure.addEventListener("pointercancel", clearSwipe);
+    lightboxFigure.addEventListener("pointerleave", clearSwipe);
     grid.addEventListener("click", (event) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
@@ -661,10 +889,12 @@
       if (!Number.isInteger(index)) return;
       openLightbox(index, trigger);
     });
-    document.querySelectorAll("[data-lang-switch]").forEach((button) => {
-      button.addEventListener("click", () => {
-        window.requestAnimationFrame(syncTopFeatureNoteCopy);
-      });
+    const languageObserver = new MutationObserver(() => {
+      window.requestAnimationFrame(syncTopFeatureNoteCopy);
+    });
+    languageObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"]
     });
 
     loadImages()
@@ -676,12 +906,12 @@
                 if (!entry.isIntersecting) return;
                 const target = entry.target;
                 if (!(target instanceof HTMLImageElement)) return;
-                setImageSource(target);
+                setImageSource(target, target.closest(".gallery-full-item"));
                 imageObserver.unobserve(target);
               });
             },
             {
-              rootMargin: OBSERVER_ROOT_MARGIN
+              rootMargin: renderConfig.observerRootMargin
             }
           );
         }

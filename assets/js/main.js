@@ -32,8 +32,8 @@
       },
       pages: {
         home: {
-          meta_title: "Home | Mo Sha",
-          hero_title: "Mo Sha",
+          meta_title: "Home | Jack Sha",
+          hero_title: "Jack Sha",
           overview_title: "Site Overview",
           overview: {
             travel_title: "Travel",
@@ -41,10 +41,10 @@
             photography_title: "Photography",
             photography_cta: "Go to Photography"
           },
-          footer: "Mo Sha / Sha Mo"
+          footer: "Jack Sha / Sha Mo"
         },
         travel: {
-          meta_title: "Travel | Mo Sha",
+          meta_title: "Travel | Jack Sha",
           hero_title: "Travel",
           hero_intro: "I travel to see the world as it is, not as it is described.",
           visual_copy_a: "Once you leave, distance becomes quietly familiar",
@@ -73,7 +73,7 @@
           footer: "Travel is not only distance; it expands perspective and judgment."
         },
         photography: {
-          meta_title: "Photography | Mo Sha",
+          meta_title: "Photography | Jack Sha",
           hero_title: "Photography",
           visual_title: "The art of light",
           hero_intro: "Photographs made in transit, with attention to silence, distance, and passing human traces.",
@@ -81,7 +81,7 @@
           gallery_intro: "A sequenced edit from the larger archive, with slower transitions between anchor images.",
           gallery_enter_cta: "Enter Gallery",
           gallery_pause: "Photographs made between departures and arrivals, across cities and mountain roads.",
-          gallery_meta_title: "Gallery | Mo Sha",
+          gallery_meta_title: "Gallery | Jack Sha",
           gallery_page_title: "Full Gallery",
           gallery_page_intro: "Browse the complete image archive.",
           gallery_back_cta: "Back to Photography Gallery",
@@ -106,7 +106,7 @@
           footer: "Silence, distance, and quiet light."
         },
         work: {
-          meta_title: "Work | Mo Sha",
+          meta_title: "Work | Jack Sha",
           hero_title: "Work",
           hero_intro: "My work is built through real-world scale, endurance, and reflection.",
           projects_title: "Projects",
@@ -126,7 +126,7 @@
           footer: "Contact details can be added in the Contact page."
         },
         life: {
-          meta_title: "Life | Mo Sha",
+          meta_title: "Life | Jack Sha",
           hero_title: "Life",
           hero_intro: "Simple things I return to while learning and building.",
           books_title: "Books",
@@ -142,7 +142,7 @@
           footer: "Simple, personal, and still evolving."
         },
         about: {
-          meta_title: "About | Mo Sha",
+          meta_title: "About | Jack Sha",
           hero_title: "About",
           hero_intro: "I try to understand myself through experience, thinking, and exploration.",
           bio_title: "Bio",
@@ -159,7 +159,7 @@
           footer: "This site is my ongoing interpretation of who I am."
         },
         contact: {
-          meta_title: "Contact | Mo Sha",
+          meta_title: "Contact | Jack Sha",
           hero_title: "Contact",
           hero_intro: "Minimal and open. Reach out if you want to talk.",
           elsewhere_title: "Elsewhere",
@@ -218,7 +218,7 @@
             photography_title: "摄影",
             photography_cta: "进入摄影"
           },
-          footer: "沙漠 / Mo Sha"
+          footer: "沙漠 / Jack Sha"
         },
         travel: {
           meta_title: "旅行 | 沙漠",
@@ -601,6 +601,66 @@
     targets.forEach((target) => observer.observe(target));
   }
 
+  function settleImageState(image, card) {
+    if (!(image instanceof HTMLImageElement)) return;
+    image.classList.remove("is-pending");
+    image.classList.add("is-ready");
+    if (card) {
+      card.classList.remove("is-loading");
+    }
+  }
+
+  function waitForImageReady(image, card) {
+    if (!(image instanceof HTMLImageElement)) return;
+
+    const finalize = () => {
+      settleImageState(image, card);
+    };
+
+    if (image.complete) {
+      finalize();
+      return;
+    }
+
+    image.classList.add("is-pending");
+    if (card) {
+      card.classList.add("is-loading");
+    }
+
+    let settled = false;
+    const complete = () => {
+      if (settled) return;
+      settled = true;
+      if (typeof image.decode === "function") {
+        image
+          .decode()
+          .catch(() => {})
+          .finally(finalize);
+        return;
+      }
+      finalize();
+    };
+
+    const fail = () => {
+      if (settled) return;
+      settled = true;
+      finalize();
+    };
+
+    image.addEventListener("load", complete, { once: true });
+    image.addEventListener("error", fail, { once: true });
+  }
+
+  function initInlineGalleryImagePolish() {
+    const inlineGalleryImages = document.querySelectorAll(".gallery-item img");
+    if (!inlineGalleryImages.length) return;
+
+    inlineGalleryImages.forEach((image) => {
+      const card = image.closest(".gallery-item");
+      waitForImageReady(image, card);
+    });
+  }
+
   async function copyTextToClipboard(value) {
     if (!value) return false;
 
@@ -834,9 +894,24 @@
       return t * t * (3 - 2 * t);
     };
 
+    let start = 0;
+    let distance = 1;
+    let isVisualInRange = true;
+
+    function measureTravelVisual() {
+      start = visualSection.offsetTop;
+      distance = Math.max(visualSection.offsetHeight - window.innerHeight, 1);
+    }
+
+    function evaluateTravelVisualRange() {
+      const rect = visualSection.getBoundingClientRect();
+      isVisualInRange =
+        rect.bottom > -window.innerHeight * 0.32 &&
+        rect.top < window.innerHeight * 1.2;
+    }
+
     function updateTravelVisual() {
-      const start = visualSection.offsetTop;
-      const distance = Math.max(visualSection.offsetHeight - window.innerHeight, 1);
+      if (!isVisualInRange) return;
       const progressLinear = clamp((window.scrollY - start) / distance, 0, 1);
       const progressEased = easeInOutCubic(progressLinear);
       const colorPulse = Math.sin(progressEased * Math.PI) * 0.14;
@@ -854,12 +929,18 @@
       if (frame) return;
       frame = window.requestAnimationFrame(() => {
         frame = 0;
+        evaluateTravelVisualRange();
         updateTravelVisual();
       });
     }
 
+    measureTravelVisual();
+    evaluateTravelVisualRange();
     window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("resize", () => {
+      measureTravelVisual();
+      requestUpdate();
+    });
     updateTravelVisual();
   }
 
@@ -878,9 +959,24 @@
     };
     const easeInOutSine = (t) => 0.5 * (1 - Math.cos(Math.PI * t));
 
+    let start = 0;
+    let distance = 1;
+    let isVisualInRange = true;
+
+    function measurePhotographyVisual() {
+      start = visualSection.offsetTop;
+      distance = Math.max(visualSection.offsetHeight - window.innerHeight, 1);
+    }
+
+    function evaluatePhotographyVisualRange() {
+      const rect = visualSection.getBoundingClientRect();
+      isVisualInRange =
+        rect.bottom > -window.innerHeight * 0.32 &&
+        rect.top < window.innerHeight * 1.2;
+    }
+
     function updatePhotographyVisual() {
-      const start = visualSection.offsetTop;
-      const distance = Math.max(visualSection.offsetHeight - window.innerHeight, 1);
+      if (!isVisualInRange) return;
       const progress = clamp((window.scrollY - start) / distance, 0, 1);
       const titlePhaseEnd = 0.24;
       const transitionProgress = clamp(
@@ -927,12 +1023,18 @@
       if (frame) return;
       frame = window.requestAnimationFrame(() => {
         frame = 0;
+        evaluatePhotographyVisualRange();
         updatePhotographyVisual();
       });
     }
 
+    measurePhotographyVisual();
+    evaluatePhotographyVisualRange();
     window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("resize", () => {
+      measurePhotographyVisual();
+      requestUpdate();
+    });
     updatePhotographyVisual();
   }
 
@@ -1026,6 +1128,7 @@
     initPhotographyVisualBlend();
     initTravelGlobeLoader();
     runWhenIdle(() => {
+      initInlineGalleryImagePolish();
       initRevealMotion();
       initContactEmailCopy();
       initSocialCards();

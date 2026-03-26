@@ -1,6 +1,8 @@
 import * as THREE from "../vendor/three/three.module.js";
 import { OrbitControls } from "../vendor/three/examples/jsm/controls/OrbitControls.js";
-import { EARTH_ATMOS_DATA_URL, EARTH_NORMAL_DATA_URL } from "./travel-globe-textures.js";
+
+const EARTH_ATMOS_TEXTURE_URL = "/assets/images/earth-atmos-1024.jpg";
+const EARTH_NORMAL_TEXTURE_URL = "/assets/images/earth-normal-1024.jpg";
 
 const visitedLocations = [
   { id: "egypt", en: "Egypt", zh: "埃及", lat: 26.8, lng: 30.8 },
@@ -391,7 +393,8 @@ function initTravelGlobe() {
   observer.observe(section);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const maxPixelRatio = window.matchMedia("(max-width: 900px)").matches ? 1.5 : 2;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio));
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   stage.appendChild(renderer.domElement);
@@ -471,7 +474,7 @@ function initTravelGlobe() {
   }
 
   textureLoader.load(
-    EARTH_ATMOS_DATA_URL,
+    EARTH_ATMOS_TEXTURE_URL,
     (texture) => {
       applyTexture(texture, (next) => {
         globeMaterial.map = next;
@@ -482,7 +485,7 @@ function initTravelGlobe() {
   );
 
   textureLoader.load(
-    EARTH_NORMAL_DATA_URL,
+    EARTH_NORMAL_TEXTURE_URL,
     (texture) => {
       applyTexture(texture, (next) => {
         globeMaterial.normalMap = next;
