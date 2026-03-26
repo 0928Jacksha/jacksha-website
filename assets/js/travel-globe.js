@@ -8,7 +8,6 @@ const visitedLocations = [
   { id: "morocco", en: "Morocco", zh: "摩洛哥", lat: 31.8, lng: -7.1 },
   { id: "bahamas", en: "Bahamas", zh: "巴哈马", lat: 25.0, lng: -77.4 },
   { id: "bvi", en: "British Virgin Islands", zh: "英属维京群岛", lat: 18.42, lng: -64.64 },
-  { id: "russia", en: "Russia", zh: "俄罗斯", lat: 61.5, lng: 105.3 },
   { id: "finland", en: "Finland", zh: "芬兰", lat: 64.5, lng: 26.0 },
   { id: "sweden", en: "Sweden", zh: "瑞典", lat: 62.0, lng: 15.0 },
   { id: "norway", en: "Norway", zh: "挪威", lat: 61.0, lng: 8.0 },
@@ -19,26 +18,21 @@ const visitedLocations = [
   { id: "italy", en: "Italy", zh: "意大利", lat: 42.6, lng: 12.5 },
   { id: "albania", en: "Albania", zh: "阿尔巴尼亚", lat: 41.2, lng: 20.2 },
   { id: "andorra", en: "Andorra", zh: "安道尔", lat: 42.5, lng: 1.6 },
-  { id: "armenia", en: "Armenia", zh: "亚美尼亚", lat: 40.3, lng: 44.9 },
   { id: "austria", en: "Austria", zh: "奥地利", lat: 47.5, lng: 14.5 },
   { id: "azerbaijan", en: "Azerbaijan", zh: "阿塞拜疆", lat: 40.4, lng: 47.7 },
-  { id: "belarus", en: "Belarus", zh: "白俄罗斯", lat: 53.7, lng: 27.9 },
   { id: "belgium", en: "Belgium", zh: "比利时", lat: 50.8, lng: 4.5 },
   { id: "bosnia", en: "Bosnia and Herzegovina", zh: "波黑", lat: 44.2, lng: 17.7 },
   { id: "bulgaria", en: "Bulgaria", zh: "保加利亚", lat: 42.7, lng: 25.5 },
   { id: "croatia", en: "Croatia", zh: "克罗地亚", lat: 45.2, lng: 15.4 },
-  { id: "cyprus", en: "Cyprus", zh: "塞浦路斯", lat: 35.1, lng: 33.4 },
   { id: "czechia", en: "Czechia", zh: "捷克", lat: 49.8, lng: 15.5 },
   { id: "denmark", en: "Denmark", zh: "丹麦", lat: 56.0, lng: 9.3 },
   { id: "estonia", en: "Estonia", zh: "爱沙尼亚", lat: 58.7, lng: 25.0 },
   { id: "germany", en: "Germany", zh: "德国", lat: 51.2, lng: 10.4 },
-  { id: "gibraltar", en: "Gibraltar", zh: "直布罗陀", lat: 36.14, lng: -5.35 },
   { id: "greece", en: "Greece", zh: "希腊", lat: 39.1, lng: 22.4 },
   { id: "hungary", en: "Hungary", zh: "匈牙利", lat: 47.1, lng: 19.5 },
   { id: "iceland", en: "Iceland", zh: "冰岛", lat: 64.9, lng: -18.6 },
   { id: "ireland", en: "Ireland", zh: "爱尔兰", lat: 53.1, lng: -8.0 },
   { id: "kazakhstan", en: "Kazakhstan", zh: "哈萨克斯坦", lat: 48.0, lng: 67.3 },
-  { id: "kosovo", en: "Kosovo", zh: "科索沃", lat: 42.7, lng: 21.1 },
   { id: "latvia", en: "Latvia", zh: "拉脱维亚", lat: 56.9, lng: 24.6 },
   { id: "liechtenstein", en: "Liechtenstein", zh: "列支敦士登", lat: 47.2, lng: 9.6 },
   { id: "lithuania", en: "Lithuania", zh: "立陶宛", lat: 55.2, lng: 23.9 },
@@ -55,7 +49,6 @@ const visitedLocations = [
   { id: "slovenia", en: "Slovenia", zh: "斯洛文尼亚", lat: 46.1, lng: 14.9 },
   { id: "switzerland", en: "Switzerland", zh: "瑞士", lat: 46.8, lng: 8.2 },
   { id: "turkey", en: "Turkey", zh: "土耳其", lat: 39.0, lng: 35.0 },
-  { id: "ukraine", en: "Ukraine", zh: "乌克兰", lat: 49.0, lng: 32.0 },
   { id: "vatican", en: "Vatican City", zh: "梵蒂冈", lat: 41.9, lng: 12.45 },
   { id: "china", en: "China", zh: "中国", lat: 35.8, lng: 104.1 },
   { id: "cambodia", en: "Cambodia", zh: "柬埔寨", lat: 12.7, lng: 104.9 },
@@ -65,7 +58,6 @@ const visitedLocations = [
   { id: "japan", en: "Japan", zh: "日本", lat: 36.2, lng: 138.2 },
   { id: "jordan", en: "Jordan", zh: "约旦", lat: 31.2, lng: 36.6 },
   { id: "lebanon", en: "Lebanon", zh: "黎巴嫩", lat: 33.9, lng: 35.8 },
-  { id: "pakistan", en: "Pakistan", zh: "巴基斯坦", lat: 30.4, lng: 69.3 },
   { id: "philippines", en: "Philippines", zh: "菲律宾", lat: 12.8, lng: 121.8 },
   { id: "saudi", en: "Saudi Arabia", zh: "沙特阿拉伯", lat: 24.1, lng: 45.1 },
   { id: "singapore", en: "Singapore", zh: "新加坡", lat: 1.35, lng: 103.82 },
@@ -82,305 +74,269 @@ const visitedLocations = [
 const keyNotes = {
   egypt: {
     en: "Home to ancient pyramids and the Nile, Egypt blends millennia of history with modern life. Its desert landscapes and archaeological wonders define its global identity.",
-    zh: "以金字塔和尼罗河闻名，融合了数千年古文明与现代社会。 其沙漠景观与考古遗迹构成了全球独特的文化符号。"
+    zh: "以金字塔和尼罗河闻名，融合了数千年古文明与现代社会 其沙漠景观与考古遗迹构成了全球独特的文化符号"
   },
   libya: {
     en: "A largely desert nation with dramatic Saharan landscapes and ancient Roman ruins. Its history spans classical civilizations and a rich cultural heritage.",
-    zh: "一个以撒哈拉沙漠为主的国家，拥有壮阔自然与古罗马遗址。 其历史横跨古典文明与丰富的文化传承。"
+    zh: "一个以撒哈拉沙漠为主的国家，拥有壮阔自然与古罗马遗址 其历史横跨古典文明与丰富的文化传承"
   },
   morocco: {
     en: "A North African country known for Atlantic and Mediterranean coasts, old medinas, and Atlas Mountain landscapes. It blends Arab, Berber, and European influences in daily life.",
-    zh: "一个位于北非的国家，以大西洋与地中海海岸、古老麦地那和阿特拉斯山脉风景闻名。 阿拉伯、柏柏尔与欧洲文化在这里交汇。"
+    zh: "一个位于北非的国家，以大西洋与地中海海岸、古老麦地那和阿特拉斯山脉风景闻名 阿拉伯、柏柏尔与欧洲文化在这里交汇"
   },
   bahamas: {
     en: "A tropical paradise of turquoise waters, white sand beaches, and relaxed island culture. Known for luxury resorts, diving, and vibrant marine life.",
-    zh: "以碧蓝海水与白沙海滩闻名的热带天堂。 这里融合了度假、潜水与轻松的岛屿生活方式。"
+    zh: "以碧蓝海水与白沙海滩闻名的热带天堂 这里融合了度假、潜水与轻松的岛屿生活方式"
   },
   bvi: {
     en: "A sailing haven with crystal-clear waters, secluded coves, and upscale Caribbean charm. Ideal for yachting, snorkeling, and quiet island escapes.",
-    zh: "以清澈海域与私密海湾著称的航海胜地。 适合帆船旅行、浮潜与高端静谧度假体验。"
-  },
-  russia: {
-    en: "A vast transcontinental country blending deep history, diverse cultural influences, and expansive landscapes. From Moscow’s grandeur to Siberia’s wilderness, scale defines everything.",
-    zh: "横跨欧亚的广袤国家，融合深厚历史、多元文化影响与辽阔景观。 从莫斯科到西伯利亚，自然与规模定义一切。"
+    zh: "以清澈海域与私密海湾著称的航海胜地 适合帆船旅行、浮潜与高端静谧度假体验"
   },
   finland: {
     en: "A land of lakes, forests, and Northern Lights, known for its minimalist design and quiet lifestyle. It balances deep nature with cutting-edge education and technology.",
-    zh: "湖泊与森林之国，以极简设计与宁静生活方式著称。 极光与高质量教育体系共同塑造其独特气质。"
+    zh: "湖泊与森林之国，以极简设计与宁静生活方式著称 极光与高质量教育体系共同塑造其独特气质"
   },
   sweden: {
     en: "A Nordic country known for design, aesthetics, and beautiful natural surroundings. Its cities are closely balanced with forests, lakes, and open space.",
-    zh: "一个以设计、美学与自然环境著称的北欧国家。 城市生活与森林、湖泊之间保持着鲜明平衡。"
+    zh: "一个以设计、美学与自然环境著称的北欧国家 城市生活与森林、湖泊之间保持着鲜明平衡"
   },
   norway: {
     en: "Famous for its dramatic fjords and Arctic landscapes, Norway offers some of Europe’s most stunning natural scenery. Its wealth and sustainability shape a high-quality lifestyle.",
-    zh: "以峡湾与极地风光闻名，是欧洲最壮丽的自然景观之一。 高福利与可持续发展塑造高品质生活。"
+    zh: "以峡湾与极地风光闻名，是欧洲最壮丽的自然景观之一 高福利与可持续发展塑造高品质生活"
   },
   uk: {
     en: "A country known for royal tradition, historic cities, and scenic countryside. From London to rural estates, it offers a strong sense of cultural depth.",
-    zh: "一个以王室传统、历史城市与乡村风景闻名的国家。 从伦敦到乡间庄园，处处体现深厚文化层次。"
+    zh: "一个以王室传统、历史城市与乡村风景闻名的国家 从伦敦到乡间庄园，处处体现深厚文化层次"
   },
   france: {
     en: "Renowned for art, cuisine, and elegance, France defines cultural refinement. From Parisian life to rural vineyards, it offers a deeply aesthetic experience.",
-    zh: "艺术、时尚与美食的代名词，代表文化精致感。 从巴黎到葡萄园，呈现极强的审美与生活方式。"
+    zh: "艺术、时尚与美食的代名词，代表文化精致感 从巴黎到葡萄园，呈现极强的审美与生活方式"
   },
   spain: {
     en: "Vibrant and diverse, Spain combines Mediterranean beaches with rich traditions like flamenco and festivals. Its regions each carry distinct identities and flavors.",
-    zh: "充满活力与地域差异的国家，融合阳光与传统文化。 弗拉门戈与节庆文化构成其独特魅力。"
+    zh: "充满活力与地域差异的国家，融合阳光与传统文化 弗拉门戈与节庆文化构成其独特魅力"
   },
   portugal: {
     en: "A coastal nation known for Atlantic views, historic cities, and maritime heritage. It offers a slower pace of life with strong cultural depth.",
-    zh: "面向大西洋的海洋国家，拥有深厚航海历史。 节奏舒缓且文化底蕴浓厚。"
+    zh: "面向大西洋的海洋国家，拥有深厚航海历史 节奏舒缓且文化底蕴浓厚"
   },
   italy: {
     en: "A center of art, history, and cuisine, Italy shaped much of Western civilization. Its cities, landscapes, and lifestyle embody timeless beauty.",
-    zh: "西方文明的重要发源地之一，艺术与历史极其丰富。 城市、建筑与生活方式充满永恒美感。"
+    zh: "西方文明的重要发源地之一，艺术与历史极其丰富 城市、建筑与生活方式充满永恒美感"
   },
   albania: {
     en: "An emerging destination with rugged mountains and untouched Adriatic beaches. It offers authentic culture and growing tourism appeal.",
-    zh: "一个逐渐兴起的旅游国家，拥有原始海岸与山地。 文化真实且尚未被过度商业化。"
+    zh: "一个逐渐兴起的旅游国家，拥有原始海岸与山地 文化真实且尚未被过度商业化"
   },
   andorra: {
     en: "A small Pyrenean country known for skiing, mountain landscapes, and tax-free shopping. It blends alpine lifestyle with compact luxury.",
-    zh: "位于比利牛斯山的小国，以滑雪与免税购物闻名。 融合山地风景与精致生活。"
-  },
-  armenia: {
-    en: "An ancient country known for mountainous landscapes and deep cultural traditions. Its historic architecture and natural setting create a distinctive atmosphere.",
-    zh: "一个拥有悠久历史、山地景观与深厚文化传统的国家。 其古老建筑与自然环境共同塑造独特气质。"
+    zh: "位于比利牛斯山的小国，以滑雪与免税购物闻名 融合山地风景与精致生活"
   },
   austria: {
     en: "Elegant and classical, Austria is known for music, imperial history, and alpine scenery. Vienna stands as a cultural and artistic center.",
-    zh: "以古典音乐与帝国历史闻名，兼具优雅与秩序。 维也纳是欧洲文化核心之一。"
+    zh: "以古典音乐与帝国历史闻名，兼具优雅与秩序 维也纳是欧洲文化核心之一"
   },
   azerbaijan: {
     en: "A country at the meeting point of Europe and Asia, blending modern cityscapes with traditional culture. Baku is especially known for its coastline and distinctive architecture.",
-    zh: "一个连接欧亚的国家，融合现代城市风貌与传统文化元素。 首都巴库的海岸线与建筑景观极具辨识度。"
-  },
-  belarus: {
-    en: "A country known for broad forests and open landscapes. Its cities and countryside reflect a strong sense of historical continuity.",
-    zh: "一个拥有广阔森林与平原景观的国家。 其城市与乡村风貌体现出鲜明的历史延续感。"
+    zh: "一个连接欧亚的国家，融合现代城市风貌与传统文化元素 首都巴库的海岸线与建筑景观极具辨识度"
   },
   belgium: {
     en: "Known for chocolate, beer, and beautifully preserved historic cities. Brussels, Bruges, and other cities offer a rich blend of history and urban charm.",
-    zh: "以巧克力、啤酒与中世纪城市闻名。 布鲁塞尔与布鲁日等城市展现出浓厚的历史与都市魅力。"
+    zh: "以巧克力、啤酒与中世纪城市闻名 布鲁塞尔与布鲁日等城市展现出浓厚的历史与都市魅力"
   },
   bosnia: {
     en: "A Balkan country known for mountain scenery, historic towns, and layered cultural heritage. Its architecture and local atmosphere reflect a rich blend of influences.",
-    zh: "一个拥有山地风景、古桥古城与多元文化遗产的巴尔干国家。 其城市建筑与地方氛围展现出丰富层次。"
+    zh: "一个拥有山地风景、古桥古城与多元文化遗产的巴尔干国家 其城市建筑与地方氛围展现出丰富层次"
   },
   bulgaria: {
     en: "A mix of ancient history, mountains, and Black Sea coastlines. It offers affordability alongside deep cultural heritage.",
-    zh: "拥有黑海海岸与悠久历史的国家。 兼具自然风光与较高性价比。"
+    zh: "拥有黑海海岸与悠久历史的国家 兼具自然风光与较高性价比"
   },
   croatia: {
     en: "Known for its Adriatic coastline, islands, and historic towns like Dubrovnik. It blends Mediterranean beauty with Slavic culture.",
-    zh: "以亚得里亚海海岸与历史古城闻名。 融合地中海风情与东欧文化。"
-  },
-  cyprus: {
-    en: "An island destination known for its Mediterranean climate, coastal scenery, and long history. Ancient sites, beaches, and a layered cultural character define its appeal.",
-    zh: "一个拥有地中海气候、海岸风光与悠久历史的岛屿地区。 古遗址、海滩与多元文化共同构成其魅力。"
+    zh: "以亚得里亚海海岸与历史古城闻名 融合地中海风情与东欧文化"
   },
   czechia: {
     en: "A country of preserved medieval cities and strong cultural identity. Prague stands out as one of Europe’s most beautiful capitals.",
-    zh: "以保存完好的中世纪城市闻名。 布拉格是欧洲最具魅力的城市之一。"
+    zh: "以保存完好的中世纪城市闻名 布拉格是欧洲最具魅力的城市之一"
   },
   denmark: {
     en: "A leader in design and quality of life, Denmark blends simplicity with innovation. Copenhagen reflects its clean, modern aesthetic.",
-    zh: "以高幸福指数与设计文化著称。 哥本哈根体现简约与现代感。"
+    zh: "以高幸福指数与设计文化著称 哥本哈根体现简约与现代感"
   },
   estonia: {
     en: "A country that combines medieval old-town charm with a modern digital lifestyle. Its historic atmosphere and contemporary urban experience fit together naturally.",
-    zh: "一个兼具中世纪老城与现代数字生活气息的国家。 历史氛围与当代城市体验结合得十分自然。"
+    zh: "一个兼具中世纪老城与现代数字生活气息的国家 历史氛围与当代城市体验结合得十分自然"
   },
   germany: {
     en: "A country known for engineering tradition, historic cities, and varied landscapes. From old towns to modern urban centers, it offers a strong blend of order and culture.",
-    zh: "一个以工程传统、历史城市与多样景观著称的国家。 从古城到现代都市，秩序与文化并存。"
-  },
-  gibraltar: {
-    en: "A well-known coastal destination near the entrance to the Mediterranean. Its dramatic rock formation, sea views, and distinctive urban setting make it especially memorable.",
-    zh: "位于地中海入口附近的一处著名海岸目的地。 其巨岩地貌、海景与独特城市环境极具辨识度。"
+    zh: "一个以工程传统、历史城市与多样景观著称的国家 从古城到现代都市，秩序与文化并存"
   },
   greece: {
     en: "A country known for ancient civilization, mythology, and island scenery. Historic ruins and Mediterranean landscapes define its unique appeal.",
-    zh: "一个以古代文明、神话传统与海岛风景闻名的国家。 历史遗迹与地中海景观共同构成其独特魅力。"
+    zh: "一个以古代文明、神话传统与海岛风景闻名的国家 历史遗迹与地中海景观共同构成其独特魅力"
   },
   hungary: {
     en: "Known for Budapest’s architecture and thermal baths. It blends Central European culture with unique national identity.",
-    zh: "以布达佩斯建筑与温泉文化闻名。 融合中欧传统与独特民族文化。"
+    zh: "以布达佩斯建筑与温泉文化闻名 融合中欧传统与独特民族文化"
   },
   iceland: {
     en: "A land of volcanoes, glaciers, and extreme natural beauty. Its landscapes feel raw, isolated, and otherworldly.",
-    zh: "火山与冰川共存的极端自然之地。 景观原始且具有强烈视觉冲击。"
+    zh: "火山与冰川共存的极端自然之地 景观原始且具有强烈视觉冲击"
   },
   ireland: {
     en: "Known for green landscapes, folklore, and warm culture. Its identity is shaped by history, music, and storytelling.",
-    zh: "以绿色自然与文化传统著称。 音乐与故事构成其精神内核。"
+    zh: "以绿色自然与文化传统著称 音乐与故事构成其精神内核"
   },
   kazakhstan: {
     en: "A vast Central Asian country with steppe landscapes and growing modern cities. It reflects both nomadic heritage and rapid development.",
-    zh: "广阔草原国家，融合游牧传统与现代发展。 城市与自然形成鲜明对比。"
-  },
-  kosovo: {
-    en: "This Balkan destination is known for its distinct cultural traditions and evolving urban character. Its mountain scenery and local atmosphere give it a unique appeal.",
-    zh: "这片巴尔干土地拥有鲜明的文化传统与不断发展的城市面貌。 其山地风景与地方生活气息构成独特魅力。"
+    zh: "广阔草原国家，融合游牧传统与现代发展 城市与自然形成鲜明对比"
   },
   latvia: {
     en: "A Baltic country with forests, coastlines, and Art Nouveau architecture. Riga stands as a cultural and historical center.",
-    zh: "波罗的海国家，拥有森林与海岸线。 里加以建筑与文化闻名。"
+    zh: "波罗的海国家，拥有森林与海岸线 里加以建筑与文化闻名"
   },
   liechtenstein: {
     en: "A tiny alpine principality known for wealth, banking, and mountains. It offers exclusivity and scenic landscapes.",
-    zh: "阿尔卑斯山中的小型富裕国家。 以金融与自然风景著称。"
+    zh: "阿尔卑斯山中的小型富裕国家 以金融与自然风景著称"
   },
   lithuania: {
     en: "A Baltic nation with strong history and cultural revival. It combines medieval heritage with modern European identity.",
-    zh: "历史深厚的波罗的海国家。 兼具传统文化与现代欧洲身份。"
+    zh: "历史深厚的波罗的海国家 兼具传统文化与现代欧洲身份"
   },
   luxembourg: {
     en: "A compact European country known for its multilingual culture and refined urban setting. Historic quarters and modern city life sit side by side.",
-    zh: "一个小巧精致、文化多语并存的欧洲国家。 历史城区与现代都市环境相互映衬。"
+    zh: "一个小巧精致、文化多语并存的欧洲国家 历史城区与现代都市环境相互映衬"
   },
   monaco: {
     en: "A small Mediterranean destination known for coastal scenery, refined urban surroundings, and motorsport culture. Its compact yet elegant cityscape is instantly recognizable.",
-    zh: "一个以海岸风景、精致城市环境与赛事文化闻名的小型地中海目的地。 其密集而优雅的城市景观极具辨识度。"
+    zh: "一个以海岸风景、精致城市环境与赛事文化闻名的小型地中海目的地 其密集而优雅的城市景观极具辨识度"
   },
   montenegro: {
     en: "A Balkan country with dramatic mountains and Adriatic coastline. It offers natural beauty with rising tourism appeal.",
-    zh: "山地与海岸并存的国家。 自然景观与旅游潜力持续上升。"
+    zh: "山地与海岸并存的国家 自然景观与旅游潜力持续上升"
   },
   netherlands: {
     en: "Known for canals, cycling culture, and beautifully ordered cityscapes. Historic towns and modern design give it a distinctive character.",
-    zh: "以运河、自行车文化与整洁城市景观著称。 历史城镇与现代设计共同塑造其独特气质。"
+    zh: "以运河、自行车文化与整洁城市景观著称 历史城镇与现代设计共同塑造其独特气质"
   },
   north_macedonia: {
     en: "A culturally rich Balkan country with lakes, mountains, and layered history. It reflects a blend of influences.",
-    zh: "文化多元的巴尔干国家。 历史与自然交织。"
+    zh: "文化多元的巴尔干国家 历史与自然交织"
   },
   poland: {
     en: "A resilient nation with strong history and economic growth. Its cities mix reconstruction with modern development.",
-    zh: "历史坚韧、经济增长迅速。 城市在重建与现代化中发展。"
+    zh: "历史坚韧、经济增长迅速 城市在重建与现代化中发展"
   },
   romania: {
     en: "A country of castles, mountains, and folklore, including Transylvania. It blends mystery with natural beauty.",
-    zh: "拥有山地与传说色彩的国家。 特兰西瓦尼亚赋予其神秘气质。"
+    zh: "拥有山地与传说色彩的国家 特兰西瓦尼亚赋予其神秘气质"
   },
   san_marino: {
     en: "One of the world’s oldest republics, perched on a mountain. It offers history in a compact, scenic form.",
-    zh: "世界最古老共和国之一。 以山城与历史著称。"
+    zh: "世界最古老共和国之一 以山城与历史著称"
   },
   serbia: {
     en: "A Balkan country with vibrant culture and complex history. Belgrade is known for its energy and nightlife.",
-    zh: "文化活跃且历史复杂。 贝尔格莱德充满活力与夜生活。"
+    zh: "文化活跃且历史复杂 贝尔格莱德充满活力与夜生活"
   },
   slovakia: {
     en: "A mountainous country with castles and natural landscapes. It offers quiet charm and Central European culture.",
-    zh: "以山地与城堡景观为特色。 氛围宁静且富有文化底蕴。"
+    zh: "以山地与城堡景观为特色 氛围宁静且富有文化底蕴"
   },
   slovenia: {
     en: "A small but diverse country with lakes, mountains, and sustainability focus. It combines alpine and Mediterranean elements.",
-    zh: "自然与可持续发展兼具的小国。 融合阿尔卑斯与地中海元素。"
+    zh: "自然与可持续发展兼具的小国 融合阿尔卑斯与地中海元素"
   },
   switzerland: {
     en: "Known for precision, wealth, and alpine scenery. It represents stability, luxury, and high quality of life.",
-    zh: "以精密、稳定与高品质生活著称。 阿尔卑斯山景与金融实力并存。"
+    zh: "以精密、稳定与高品质生活著称 阿尔卑斯山景与金融实力并存"
   },
   turkey: {
     en: "A bridge between Europe and Asia with rich history and culture. Istanbul embodies its unique dual identity.",
-    zh: "横跨欧亚的文化桥梁。 伊斯坦布尔体现历史与现代交汇。"
-  },
-  ukraine: {
-    en: "A large Eastern European country known for its deep cultural heritage, broad plains, and distinctive cities. Its architecture, traditions, and local culture give it a strong character.",
-    zh: "一个文化底蕴深厚、平原与城市景观兼具特色的东欧国家。 其建筑、传统与地方文化展现出鲜明个性。"
+    zh: "横跨欧亚的文化桥梁 伊斯坦布尔体现历史与现代交汇"
   },
   vatican: {
     en: "One of the world’s smallest countries, known for its religious architecture, artistic treasures, and historical significance. Though small in size, it holds remarkable cultural symbolism.",
-    zh: "世界最小的国家之一，以宗教建筑、艺术收藏与历史价值闻名。 其空间虽小，却拥有极高的文化象征意义。"
+    zh: "世界最小的国家之一，以宗教建筑、艺术收藏与历史价值闻名 其空间虽小，却拥有极高的文化象征意义"
   },
   china: {
     en: "A vast country with ancient civilization and rapid modernization. It blends tradition, scale, and economic power.",
-    zh: "拥有悠久文明与高速现代化进程的国家。 融合传统文化、规模与经济力量。"
+    zh: "拥有悠久文明与高速现代化进程的国家 融合传统文化、规模与经济力量"
   },
   cambodia: {
     en: "Known for Angkor Wat and deep historical heritage. It combines ancient culture with developing modern identity.",
-    zh: "以吴哥窟闻名的历史国家。 古老文化与现代发展并存。"
+    zh: "以吴哥窟闻名的历史国家 古老文化与现代发展并存"
   },
   hong_kong: {
     en: "A global financial hub with dense urban skyline and East-West fusion. It is defined by efficiency, finance, and culture.",
-    zh: "全球金融中心，融合东西方文化。 以高密度城市与效率著称。"
+    zh: "全球金融中心，融合东西方文化 以高密度城市与效率著称"
   },
   indonesia: {
     en: "An archipelago of thousands of islands with diverse cultures and landscapes. Bali represents its global tourism image.",
-    zh: "由数千岛屿组成的国家，文化多样。 巴厘岛代表其全球旅游形象。"
+    zh: "由数千岛屿组成的国家，文化多样 巴厘岛代表其全球旅游形象"
   },
   israel: {
     en: "A country known for innovation, historic sites, and a diverse cultural landscape. Its modern cities and ancient places create a striking contrast.",
-    zh: "一个以创新能力、历史遗迹与多元文化景观著称的国家。 现代城市与古老地点并存，形成鲜明对比。"
+    zh: "一个以创新能力、历史遗迹与多元文化景观著称的国家 现代城市与古老地点并存，形成鲜明对比"
   },
   japan: {
     en: "A balance of tradition and cutting-edge technology. It is known for precision, culture, and refined aesthetics.",
-    zh: "传统与科技高度融合的国家。 以精致文化与审美著称。"
+    zh: "传统与科技高度融合的国家 以精致文化与审美著称"
   },
   jordan: {
     en: "Home to Petra and desert landscapes, rich in history. It offers cultural depth in a stable Middle Eastern setting.",
-    zh: "以佩特拉与沙漠景观闻名。 历史与稳定性并存。"
+    zh: "以佩特拉与沙漠景观闻名 历史与稳定性并存"
   },
   lebanon: {
     en: "A culturally vibrant country with Mediterranean influence. Its history and resilience define its identity.",
-    zh: "文化活跃且具有地中海风格。 历史与现实交织。"
-  },
-  pakistan: {
-    en: "A diverse country with mountains, culture, and historical depth. It plays a significant role in South Asia.",
-    zh: "多样地理与文化的南亚国家。 具有重要区域影响力。"
+    zh: "文化活跃且具有地中海风格 历史与现实交织"
   },
   philippines: {
     en: "An island nation with beaches, hospitality, and vibrant culture. It blends Asian roots with Western influence.",
-    zh: "以海岛与热情文化著称。 融合亚洲与西方影响。"
+    zh: "以海岛与热情文化著称 融合亚洲与西方影响"
   },
   saudi: {
     en: "A country known for vast desert landscapes, rich resources, and rapidly developing cities. Traditional settings and modern architecture shape its distinctive character.",
-    zh: "一个拥有广阔沙漠景观、丰富资源与快速城市发展的国家。 传统环境与现代建筑共同塑造其独特面貌。"
+    zh: "一个拥有广阔沙漠景观、丰富资源与快速城市发展的国家 传统环境与现代建筑共同塑造其独特面貌"
   },
   singapore: {
     en: "A city destination known for clean urban landscapes, tropical greenery, and modern architecture. Its multicultural atmosphere and high-density city life feel especially well integrated.",
-    zh: "一个以整洁城市景观、热带绿意与现代建筑著称的城市目的地。 多元文化与高密度都市生活在这里融合得非常自然。"
+    zh: "一个以整洁城市景观、热带绿意与现代建筑著称的城市目的地 多元文化与高密度都市生活在这里融合得非常自然"
   },
   south_korea: {
     en: "A leader in technology, entertainment, and culture. It combines rapid growth with strong national identity.",
-    zh: "科技与文化输出强国。 娱乐与产业并行发展。"
+    zh: "科技与文化输出强国 娱乐与产业并行发展"
   },
   thailand: {
     en: "A major tourism destination known for beaches, temples, and cuisine. It balances tradition with modern tourism.",
-    zh: "热门旅游国家，以海滩与美食闻名。 传统与旅游经济结合紧密。"
+    zh: "热门旅游国家，以海滩与美食闻名 传统与旅游经济结合紧密"
   },
   uzbekistan: {
     en: "A Silk Road country with historic cities like Samarkand. It reflects Central Asia’s rich cultural past.",
-    zh: "丝绸之路核心国家之一。 历史城市体现中亚文化精髓。"
+    zh: "丝绸之路核心国家之一 历史城市体现中亚文化精髓"
   },
   turkmenistan: {
     en: "A Central Asian country largely shaped by the Karakum Desert and Silk Road history. Its identity blends ancient caravan routes with a distinct modern state.",
-    zh: "一个深受卡拉库姆沙漠与丝绸之路历史影响的中亚国家。其国家气质融合了古代商路遗产与鲜明的现代国家形态。"
+    zh: "一个深受卡拉库姆沙漠与丝绸之路历史影响的中亚国家其国家气质融合了古代商路遗产与鲜明的现代国家形态"
   },
   usa: {
     en: "A country known for vast geography, cultural variety, and distinctive cities. From natural scenery to urban life, each region offers a different character.",
-    zh: "一个拥有广阔地理、多元文化与鲜明城市风格的国家。 从自然景观到都市生活，各地区都展现出不同气质。"
+    zh: "一个拥有广阔地理、多元文化与鲜明城市风格的国家 从自然景观到都市生活，各地区都展现出不同气质"
   },
   jinan: {
     en: "Starting point of the 2017 long-range Europe road journey.",
-    zh: "2017 年欧洲长途自驾的出发点。"
+    zh: "2017 年欧洲长途自驾的出发点"
   },
   huangshan: {
     en: "Anchor point of the 2,200 km cycling expedition with my father.",
-    zh: "与父亲 2200 公里骑行远征的重要坐标。"
+    zh: "与父亲 2200 公里骑行远征的重要坐标"
   },
   new_york_state: {
     en: "Current study base and a new chapter in my global route.",
-    zh: "当前学习生活基地，也是旅行叙事的新阶段。"
+    zh: "当前学习生活基地，也是旅行叙事的新阶段"
   }
 };
-
-function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
-}
 
 function latLngToVector3(lat, lng, radius) {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -406,7 +362,7 @@ function getDescription(location) {
     return keyNotes[location.id][lang];
   }
   return lang === "zh"
-    ? `${location.zh || location.en}：该地点简介待补充。`
+    ? `${location.zh || location.en}：该地点简介待补充`
     : `${location.en}: Description to be added.`;
 }
 
@@ -445,12 +401,11 @@ function initTravelGlobe() {
   camera.position.set(0, 0.02, 4.03);
 
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.074;
+  controls.enableDamping = false;
   controls.enablePan = false;
   controls.enableZoom = false;
   controls.zoomSpeed = 0.42;
-  controls.rotateSpeed = 0.44;
+  controls.rotateSpeed = 1;
   controls.minDistance = 1.45;
   controls.maxDistance = 7.8;
   controls.autoRotate = true;
@@ -647,41 +602,42 @@ function initTravelGlobe() {
     setHoveredMarker(null);
   }
 
-  function onPointerDown() {
+  function onClick() {
+    if (!hoveredMarker) return;
+    selectedLocation = hoveredMarker.userData.location;
+    setPanel(selectedLocation);
     lastInteractionAt = performance.now();
   }
 
   function onWheel(event) {
     updatePointer(event);
     raycaster.setFromCamera(pointer, camera);
-    const globeIntersects = raycaster.intersectObject(globe, false);
-    if (globeIntersects.length === 0) return;
+    const globeHits = raycaster.intersectObject(globe, false);
+    const rect = renderer.domElement.getBoundingClientRect();
+    const dx = pointerX - rect.width * 0.5;
+    const dy = pointerY - rect.height * 0.5;
+    const focusRadius = Math.min(rect.width, rect.height) * 0.53;
+    const inGlobeFocusZone = dx * dx + dy * dy <= focusRadius * focusRadius;
+    if (globeHits.length === 0 && !inGlobeFocusZone) return;
 
     event.preventDefault();
     lastInteractionAt = performance.now();
 
     const zoomScale = Math.exp(event.deltaY * 0.0012);
     const offset = camera.position.clone().sub(controls.target);
-    const nextDistance = clamp(offset.length() * zoomScale, controls.minDistance, controls.maxDistance);
+    const nextDistance = Math.min(
+      controls.maxDistance,
+      Math.max(controls.minDistance, offset.length() * zoomScale)
+    );
     offset.setLength(nextDistance);
     camera.position.copy(controls.target).add(offset);
     controls.update();
   }
 
-  function onClick() {
-    if (!hoveredMarker) return;
-    selectedLocation = hoveredMarker.userData.location;
-    setPanel(selectedLocation);
-  }
-
   renderer.domElement.addEventListener("pointermove", onPointerMove);
   renderer.domElement.addEventListener("pointerleave", onPointerLeave);
-  renderer.domElement.addEventListener("pointerdown", onPointerDown);
-  renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
   renderer.domElement.addEventListener("click", onClick);
-  controls.addEventListener("start", () => {
-    lastInteractionAt = performance.now();
-  });
+  renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
 
   const languageObserver = new MutationObserver(refreshLanguageSensitiveText);
   languageObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
@@ -705,7 +661,7 @@ function initTravelGlobe() {
     const intersects = raycaster.intersectObjects(markers, false);
     setHoveredMarker(intersects.length > 0 ? intersects[0].object : null);
 
-    controls.autoRotate = performance.now() - lastInteractionAt > 2400;
+    controls.autoRotate = performance.now() - lastInteractionAt > 2200;
     controls.update();
     renderer.render(scene, camera);
   }

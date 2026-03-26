@@ -9,7 +9,7 @@
       content="Contact Mo Sha for conversation and collaboration."
     />
     <meta name="theme-color" content="#f8f6f1" />
-    <link rel="canonical" href="https://mosha.site/pages/contact.html" />
+    <link rel="canonical" href="https://jacksha.com/pages/contact.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Mo Sha" />
     <meta property="og:locale" content="en_US" />
@@ -19,8 +19,8 @@
       property="og:description"
       content="A minimal contact page for open communication."
     />
-    <meta property="og:url" content="https://mosha.site/pages/contact.html" />
-    <meta property="og:image" content="https://mosha.site/assets/images/home-hero-optimized.jpg" />
+    <meta property="og:url" content="https://jacksha.com/pages/contact.html" />
+    <meta property="og:image" content="https://jacksha.com/assets/images/home-hero-optimized.jpg" />
     <meta property="og:image:alt" content="Contact page for Mo Sha" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Contact | Mo Sha" />
@@ -28,28 +28,28 @@
       name="twitter:description"
       content="A minimal contact page for open communication."
     />
-    <meta name="twitter:url" content="https://mosha.site/pages/contact.html" />
-    <meta name="twitter:image" content="https://mosha.site/assets/images/home-hero-optimized.jpg" />
+    <meta name="twitter:url" content="https://jacksha.com/pages/contact.html" />
+    <meta name="twitter:image" content="https://jacksha.com/assets/images/home-hero-optimized.jpg" />
     <meta name="twitter:image:alt" content="Contact page for Mo Sha" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ContactPage",
-        "@id": "https://mosha.site/pages/contact.html#webpage",
-        "url": "https://mosha.site/pages/contact.html",
+        "@id": "https://jacksha.com/pages/contact.html#webpage",
+        "url": "https://jacksha.com/pages/contact.html",
         "name": "Contact | Mo Sha",
         "description": "A minimal contact page for open communication.",
         "inLanguage": ["en", "zh-CN"],
         "isPartOf": {
           "@type": "WebSite",
-          "url": "https://mosha.site/",
+          "url": "https://jacksha.com/",
           "name": "Mo Sha"
         },
         "about": {
           "@type": "Person",
           "name": "Mo Sha",
           "alternateName": "Sha Mo",
-          "url": "https://mosha.site/"
+          "url": "https://jacksha.com/"
         }
       }
     </script>
@@ -63,9 +63,7 @@
           <a href="../index.html" data-i18n="common.nav.home">Home</a>
           <a href="./travel.html" data-i18n="common.nav.travel">Travel</a>
           <a href="./photography.html" data-i18n="common.nav.photography">Photography</a>
-          <a href="./work.html" data-i18n="common.nav.work">Work</a>
-          <a href="./life.html" data-i18n="common.nav.life">Life</a>
-          <a href="./about.html" data-i18n="common.nav.about">About</a>
+          <!-- <a href="./about.html" data-i18n="common.nav.about">About</a> -->
           <a href="./contact.html" aria-current="page" data-i18n="common.nav.contact">Contact</a>
           <div class="lang-toggle" role="group" aria-label="Language switch" data-i18n-attr="aria-label:common.lang_aria">
             <button type="button" data-lang-switch="en" data-i18n="common.lang_en" aria-pressed="true">EN</button>
@@ -85,61 +83,168 @@
 
       <section class="section">
         <div class="container">
-          <h2 data-i18n="page.form_title">Contact Form</h2>
-          <form class="card" data-contact-form novalidate>
-            <p class="meta" data-i18n="page.form_intro">You can leave a message here. Keep it simple.</p>
-            <div class="grid grid-2">
-              <label>
-                <span data-i18n="page.name_label">Name</span>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
-                  data-i18n-placeholder="page.name_placeholder"
-                  autocomplete="name"
-                  required
-                />
-              </label>
-              <label>
-                <span data-i18n="page.email_label">Email</span>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                  data-i18n-placeholder="page.email_placeholder"
-                  autocomplete="email"
-                  required
-                />
-              </label>
-            </div>
-            <label>
-              <span data-i18n="page.message_label">Message</span>
-              <textarea
-                name="message"
-                rows="6"
-                placeholder="Write a short message..."
-                data-i18n-placeholder="page.message_placeholder"
-                required
-              ></textarea>
-            </label>
-            <button type="submit" data-i18n="page.submit">Send</button>
-            <p class="form-status" data-contact-status aria-live="polite" hidden></p>
-            <p class="meta" data-i18n="page.form_note">Open to communication, collaboration, and conversations.</p>
-          </form>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
           <h2 data-i18n="page.elsewhere_title">Elsewhere</h2>
           <div class="grid grid-2">
             <div class="card">
               <h3 data-i18n="page.email_title">Email</h3>
-              <p class="meta" data-i18n="page.email_body">(you can add your real email later)</p>
+              <p class="meta">
+                <a
+                  href="#"
+                  class="email-copy-link"
+                  data-copy-email="jackshamo@icloud.com"
+                  data-i18n-attr="aria-label:page.email_copy_aria"
+                  aria-label="Copy email address"
+                >
+                  jackshamo@icloud.com
+                </a>
+              </p>
+              <p class="meta email-copy-status" data-email-copy-status aria-live="polite" hidden></p>
             </div>
-            <div class="card">
-              <h3 data-i18n="page.social_title">Social</h3>
-              <p class="meta" data-i18n="page.social_body">(you can add later if needed)</p>
+          </div>
+          <div class="grid grid-2 social-cards-grid">
+            <div
+              class="card social-card social-card--instagram"
+              data-social-card
+              data-social-platform="Instagram"
+              data-social-handle="@jacksha0"
+              data-social-url="https://www.instagram.com/jacksha0/"
+              data-social-share-title="Instagram @jacksha0"
+            >
+              <p class="social-kicker" data-i18n="page.social_kicker">Social</p>
+              <h3 class="social-heading" data-i18n="page.social_heading_instagram">Instagram</h3>
+              <p class="meta social-handle" data-social-handle-label>@jacksha0</p>
+              <p class="meta social-support" data-i18n="page.social_support_instagram">
+                A visual journal, in motion.
+              </p>
+              <div class="social-actions">
+                <a
+                  class="social-action social-action-link"
+                  href="https://www.instagram.com/jacksha0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-view-link
+                  data-i18n="page.social_view"
+                >
+                  View profile
+                </a>
+                <button
+                  type="button"
+                  class="social-action social-action-button"
+                  data-social-share-toggle
+                  aria-expanded="false"
+                  data-i18n-attr="aria-label:page.social_share_aria"
+                  aria-label="Open Instagram sharing options"
+                  data-i18n="page.social_share"
+                >
+                  Share profile
+                </button>
+              </div>
+              <div
+                class="social-share-panel"
+                data-social-share-panel
+                role="region"
+                aria-hidden="true"
+                data-i18n-attr="aria-label:page.social_share_panel_aria"
+                aria-label="Profile sharing options"
+              >
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-copy="url"
+                  data-i18n="page.social_copy_link"
+                >
+                  Copy link
+                </button>
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-copy="handle"
+                  data-i18n="page.social_copy_handle"
+                >
+                  Copy handle
+                </button>
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-native-share
+                  data-i18n="page.social_native_share"
+                >
+                  System share
+                </button>
+              </div>
+              <p class="meta social-status" data-social-status aria-live="polite" hidden></p>
+            </div>
+            <div
+              class="card social-card social-card--snapchat"
+              data-social-card
+              data-social-platform="Snapchat"
+              data-social-handle="@jacksha928"
+              data-social-url="https://snapchat.com/t/ksKdZTiD"
+              data-social-share-title="Snapchat @jacksha928"
+            >
+              <p class="social-kicker" data-i18n="page.social_kicker">Social</p>
+              <h3 class="social-heading" data-i18n="page.social_heading_snapchat">Snapchat</h3>
+              <p class="meta social-handle" data-social-handle-label>@jacksha928</p>
+              <p class="meta social-support" data-i18n="page.social_support_snapchat">
+                Moments, in passing.
+              </p>
+              <div class="social-actions">
+                <a
+                  class="social-action social-action-link"
+                  href="https://snapchat.com/t/ksKdZTiD"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-view-link
+                  data-i18n="page.social_view"
+                >
+                  View profile
+                </a>
+                <button
+                  type="button"
+                  class="social-action social-action-button"
+                  data-social-share-toggle
+                  aria-expanded="false"
+                  data-i18n-attr="aria-label:page.social_share_aria"
+                  aria-label="Open profile sharing options"
+                  data-i18n="page.social_share"
+                >
+                  Share profile
+                </button>
+              </div>
+              <div
+                class="social-share-panel"
+                data-social-share-panel
+                role="region"
+                aria-hidden="true"
+                data-i18n-attr="aria-label:page.social_share_panel_aria"
+                aria-label="Profile sharing options"
+              >
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-copy="url"
+                  data-i18n="page.social_copy_link"
+                >
+                  Copy link
+                </button>
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-copy="handle"
+                  data-i18n="page.social_copy_handle"
+                >
+                  Copy handle
+                </button>
+                <button
+                  type="button"
+                  class="social-share-action"
+                  data-social-native-share
+                  data-i18n="page.social_native_share"
+                >
+                  System share
+                </button>
+              </div>
+              <p class="meta social-status" data-social-status aria-live="polite" hidden></p>
             </div>
           </div>
         </div>
@@ -149,6 +254,14 @@
     <footer class="site-footer">
       <div class="container">
         <p data-i18n="page.footer">Open to communication, collaboration, and conversations.</p>
+        <div class="legal-disclaimer" aria-label="Legal notice">
+          <p class="meta">All content on this site is original unless otherwise stated.</p>
+          <p class="meta">&copy; 2026 Jack Sha. All rights reserved.</p>
+          <p class="meta">No reproduction, redistribution, or commercial use without permission.</p>
+          <p class="meta">This site is a personal project for expression and documentation, not a service or professional advice.</p>
+          <p class="meta">If any content raises concerns regarding rights or usage, please contact me for prompt resolution.</p>
+          <p class="meta">For copyright or content concerns, please reach out via this page.</p>
+        </div>
       </div>
     </footer>
 

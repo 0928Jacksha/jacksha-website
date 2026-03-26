@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mosha.site/sitemap.xml
+Sitemap: https://jacksha.com/sitemap.xml

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="page.gallery_meta_title">Gallery | Mo Sha</title>
+    <meta
+      name="description"
+      content="Full photography gallery by Mo Sha, with a complete image archive and fullscreen lightbox viewing."
+    />
+    <meta name="theme-color" content="#f8f6f1" />
+    <link rel="canonical" href="https://jacksha.com/gallery.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mo Sha" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta property="og:title" content="Gallery | Mo Sha" />
+    <meta
+      property="og:description"
+      content="Browse the complete photography archive in a fullscreen gallery."
+    />
+    <meta property="og:url" content="https://jacksha.com/gallery.html" />
+    <meta property="og:image" content="https://jacksha.com/assets/images/photo1-optimized.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gallery | Mo Sha" />
+    <meta
+      name="twitter:description"
+      content="Browse the complete photography archive in a fullscreen gallery."
+    />
+    <meta name="twitter:url" content="https://jacksha.com/gallery.html" />
+    <meta name="twitter:image" content="https://jacksha.com/assets/images/photo1-optimized.jpg" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body data-page="photography">
+    <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Main navigation" data-i18n-attr="aria-label:common.nav_aria">
+          <a href="./index.html" data-i18n="common.nav.home">Home</a>
+          <a href="./pages/travel.html" data-i18n="common.nav.travel">Travel</a>
+          <a href="./pages/photography.html" aria-current="page" data-i18n="common.nav.photography">Photography</a>
+          <!-- <a href="./pages/about.html" data-i18n="common.nav.about">About</a> -->
+          <a href="./pages/contact.html" data-i18n="common.nav.contact">Contact</a>
+          <div class="lang-toggle" role="group" aria-label="Language switch" data-i18n-attr="aria-label:common.lang_aria">
+            <button type="button" data-lang-switch="en" data-i18n="common.lang_en" aria-pressed="true">EN</button>
+            <button type="button" data-lang-switch="zh" data-i18n="common.lang_zh" aria-pressed="false">中文</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section section-gallery-full">
+        <div class="container">
+          <h1 class="sr-only" data-i18n="page.gallery_page_title">Full Gallery</h1>
+          <h2 data-i18n="page.gallery_title">Selected Works</h2>
+          <p class="meta" data-i18n="page.gallery_page_intro">Browse the complete image archive.</p>
+          <p class="gallery-page-back">
+            <a href="./pages/photography.html#photo-gallery" data-i18n="page.gallery_back_cta">Back to Photography</a>
+          </p>
+          <p class="meta gallery-status" data-gallery-status data-i18n="page.gallery_loading">
+            Loading gallery...
+          </p>
+          <div class="gallery-full-grid" data-gallery-grid></div>
+          <p class="meta gallery-status" data-gallery-empty hidden data-i18n="page.gallery_empty">
+            No images found in the gallery.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="gallery-lightbox" data-gallery-lightbox hidden>
+      <div class="gallery-lightbox-backdrop" data-gallery-lightbox-close></div>
+      <div
+        class="gallery-lightbox-frame"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image viewer"
+        data-i18n-attr="aria-label:page.gallery_lightbox_dialog"
+      >
+        <button
+          type="button"
+          class="gallery-lightbox-close"
+          data-gallery-lightbox-close
+          aria-label="Close lightbox"
+          data-i18n-attr="aria-label:page.gallery_lightbox_close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <button
+          type="button"
+          class="gallery-lightbox-nav is-prev"
+          data-gallery-prev
+          aria-label="Previous image"
+          data-i18n-attr="aria-label:page.gallery_lightbox_prev"
+        >
+          <span aria-hidden="true">&#8592;</span>
+        </button>
+        <figure class="gallery-lightbox-figure">
+          <img src="" alt="" data-gallery-lightbox-image />
+          <figcaption class="gallery-lightbox-meta" data-gallery-lightbox-meta>
+            <p class="gallery-lightbox-count" data-gallery-lightbox-count></p>
+            <h2 class="gallery-lightbox-title" data-gallery-lightbox-title></h2>
+            <p class="gallery-lightbox-location" data-gallery-lightbox-location hidden></p>
+            <p class="gallery-lightbox-caption" data-gallery-lightbox-caption></p>
+          </figcaption>
+        </figure>
+        <button
+          type="button"
+          class="gallery-lightbox-nav is-next"
+          data-gallery-next
+          aria-label="Next image"
+          data-i18n-attr="aria-label:page.gallery_lightbox_next"
+        >
+          <span aria-hidden="true">&#8594;</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p data-i18n="page.footer">Silence, distance, and quiet light.</p>
+        <p class="meta">All photographs are protected by copyright.</p>
+      </div>
+    </footer>
+
+    <script src="./assets/js/main.js" defer></script>
+    <script src="./assets/js/gallery-manifest.js" defer></script>
+    <script src="./assets/js/gallery.js" defer></script>
+  </body>
+</html>

@@ -4,6 +4,7 @@ Clean multi-page website foundation focused on structure and navigation.
 
 ## Project Structure
 - Home page (root): `index.html`
+- Gallery page (root): `gallery.html`
 - Subpages: `pages/`
   - `travel.html`
   - `photography.html`
@@ -14,7 +15,9 @@ Clean multi-page website foundation focused on structure and navigation.
 - Assets: `assets/`
   - `css/main.css`
   - `js/main.js`
+  - `js/gallery.js`
   - `images/`
+    - `gallery-manifest.json`
 
 ## Notes
 - All pages share the same main navbar.

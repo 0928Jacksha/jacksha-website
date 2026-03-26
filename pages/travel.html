@@ -9,7 +9,7 @@
       content="Travel footprint across 60+ countries, including key routes and an interactive globe."
     />
     <meta name="theme-color" content="#161415" />
-    <link rel="canonical" href="https://mosha.site/pages/travel.html" />
+    <link rel="canonical" href="https://jacksha.com/pages/travel.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Mo Sha" />
     <meta property="og:locale" content="en_US" />
@@ -19,8 +19,8 @@
       property="og:description"
       content="Global routes, visited regions, and perspective from long-range travel."
     />
-    <meta property="og:url" content="https://mosha.site/pages/travel.html" />
-    <meta property="og:image" content="https://mosha.site/assets/images/travel-visual-a.jpg" />
+    <meta property="og:url" content="https://jacksha.com/pages/travel.html" />
+    <meta property="og:image" content="https://jacksha.com/assets/images/travel-visual-a.jpg" />
     <meta property="og:image:alt" content="Travel visual from Mo Sha" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Travel | Mo Sha" />
@@ -28,34 +28,35 @@
       name="twitter:description"
       content="Global routes, visited regions, and perspective from long-range travel."
     />
-    <meta name="twitter:url" content="https://mosha.site/pages/travel.html" />
-    <meta name="twitter:image" content="https://mosha.site/assets/images/travel-visual-a.jpg" />
+    <meta name="twitter:url" content="https://jacksha.com/pages/travel.html" />
+    <meta name="twitter:image" content="https://jacksha.com/assets/images/travel-visual-a.jpg" />
     <meta name="twitter:image:alt" content="Travel visual from Mo Sha" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://mosha.site/pages/travel.html#webpage",
-        "url": "https://mosha.site/pages/travel.html",
+        "@id": "https://jacksha.com/pages/travel.html#webpage",
+        "url": "https://jacksha.com/pages/travel.html",
         "name": "Travel | Mo Sha",
         "description": "Travel footprint across 60+ countries, including key routes and an interactive globe.",
         "inLanguage": ["en", "zh-CN"],
         "isPartOf": {
           "@type": "WebSite",
-          "url": "https://mosha.site/",
+          "url": "https://jacksha.com/",
           "name": "Mo Sha"
         },
         "about": {
           "@type": "Person",
           "name": "Mo Sha",
           "alternateName": "Sha Mo",
-          "url": "https://mosha.site/"
+          "url": "https://jacksha.com/"
         }
       }
     </script>
-    <link rel="stylesheet" href="../assets/css/main.css?v=20260324-12" />
+    <link rel="preload" as="image" href="../assets/images/travel-visual-a.jpg" />
+    <link rel="stylesheet" href="../assets/css/main.css?v=20260325-18" />
   </head>
-  <body data-page="travel">
+  <body data-page="travel" data-travel-globe-src="../assets/js/travel-globe.bundle.js?v=20260326-opt1">
     <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
     <header class="site-header">
       <div class="container">
@@ -63,9 +64,7 @@
           <a href="../index.html" data-i18n="common.nav.home">Home</a>
           <a href="./travel.html" aria-current="page" data-i18n="common.nav.travel">Travel</a>
           <a href="./photography.html" data-i18n="common.nav.photography">Photography</a>
-          <a href="./work.html" data-i18n="common.nav.work">Work</a>
-          <a href="./life.html" data-i18n="common.nav.life">Life</a>
-          <a href="./about.html" data-i18n="common.nav.about">About</a>
+          <!-- <a href="./about.html" data-i18n="common.nav.about">About</a> -->
           <a href="./contact.html" data-i18n="common.nav.contact">Contact</a>
           <div class="lang-toggle" role="group" aria-label="Language switch" data-i18n-attr="aria-label:common.lang_aria">
             <button type="button" data-lang-switch="en" data-i18n="common.lang_en" aria-pressed="true">EN</button>
@@ -83,7 +82,7 @@
           <div class="travel-visual-layer travel-visual-layer-a" aria-hidden="true"></div>
           <div class="travel-visual-layer travel-visual-layer-b" aria-hidden="true"></div>
           <div class="travel-visual-color" aria-hidden="true"></div>
-          <p class="travel-visual-copy travel-visual-copy-a" aria-hidden="true" data-i18n="page.visual_copy_a">Beyond the known world.</p>
+          <p class="travel-visual-copy travel-visual-copy-a" aria-hidden="true" data-i18n="page.visual_copy_a">Once you leave, distance becomes quietly familiar</p>
           <p class="travel-visual-copy travel-visual-copy-b" aria-hidden="true" data-i18n="page.visual_copy_b">Things begin to shift.</p>
         </div>
       </section>
@@ -107,30 +106,282 @@
 
       <section class="section">
         <div class="container">
-          <h2 data-i18n="page.maps_title">Visited Regions and Countries</h2>
-          <div class="card">
-            <p class="meta" data-i18n="page.maps_body">Africa: Egypt, Libya, Morocco. North America: Bahamas, British Virgin Islands. Europe: Russia, Finland, Sweden, Norway, United Kingdom, France, Spain, Portugal, Italy, Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Germany, Gibraltar, Greece, Hungary, Iceland, Ireland, Kazakhstan, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Monaco, Montenegro, Netherlands, North Macedonia, Poland, Romania, San Marino, Serbia, Slovakia, Slovenia, Switzerland, Türkiye, Ukraine, Vatican City. Asia: China, Cambodia, Hong Kong, Indonesia, Israel, Japan, Jordan, Lebanon, Pakistan, Philippines, Saudi Arabia, Singapore, South Korea, Thailand, Uzbekistan, Turkmenistan.</p>
+          <h2 data-i18n="page.maps_title">Visited Countries by Continent</h2>
+          <div class="visited-country-board" data-i18n-attr="aria-label:page.maps_board_aria" aria-label="Visited countries grouped by continent">
+            <article class="card visited-continent-card">
+              <h3><span class="continent-en">Africa</span><span class="continent-zh">非洲</span></h3>
+              <ul class="visited-country-list" role="list">
+                <li data-country-id="egypt">
+                  <span class="country-en">🇪🇬 Arab Republic of Egypt</span>
+                  <span class="country-zh">🇪🇬 阿拉伯埃及共和国</span>
+                </li>
+                <li data-country-id="libya">
+                  <span class="country-en">🇱🇾 State of Libya</span>
+                  <span class="country-zh">🇱🇾 利比亚国</span>
+                </li>
+                <li data-country-id="morocco">
+                  <span class="country-en">🇲🇦 Kingdom of Morocco</span>
+                  <span class="country-zh">🇲🇦 摩洛哥王国</span>
+                </li>
+              </ul>
+            </article>
+            <article class="card visited-continent-card">
+              <h3><span class="continent-en">North America</span><span class="continent-zh">北美洲</span></h3>
+              <ul class="visited-country-list" role="list">
+                <li data-country-id="bahamas">
+                  <span class="country-en">🇧🇸 Commonwealth of The Bahamas</span>
+                  <span class="country-zh">🇧🇸 巴哈马联邦</span>
+                </li>
+                <li data-country-id="bvi">
+                  <span class="country-en">🇻🇬 Virgin Islands (British)</span>
+                  <span class="country-zh">🇻🇬 英属维尔京群岛</span>
+                </li>
+              </ul>
+            </article>
+            <article class="card visited-continent-card is-europe is-wide">
+              <h3><span class="continent-en">Europe</span><span class="continent-zh">欧洲</span></h3>
+              <ul class="visited-country-list" role="list">
+                <li data-country-id="finland">
+                  <span class="country-en">🇫🇮 Republic of Finland</span>
+                  <span class="country-zh">🇫🇮 芬兰共和国</span>
+                </li>
+                <li data-country-id="sweden">
+                  <span class="country-en">🇸🇪 Kingdom of Sweden</span>
+                  <span class="country-zh">🇸🇪 瑞典王国</span>
+                </li>
+                <li data-country-id="norway">
+                  <span class="country-en">🇳🇴 Kingdom of Norway</span>
+                  <span class="country-zh">🇳🇴 挪威王国</span>
+                </li>
+                <li data-country-id="uk">
+                  <span class="country-en">🇬🇧 United Kingdom of Great Britain and Northern Ireland</span>
+                  <span class="country-zh">🇬🇧 大不列颠及北爱尔兰联合王国</span>
+                </li>
+                <li data-country-id="france">
+                  <span class="country-en">🇫🇷 French Republic</span>
+                  <span class="country-zh">🇫🇷 法兰西共和国</span>
+                </li>
+                <li data-country-id="spain">
+                  <span class="country-en">🇪🇸 Kingdom of Spain</span>
+                  <span class="country-zh">🇪🇸 西班牙王国</span>
+                </li>
+                <li data-country-id="portugal">
+                  <span class="country-en">🇵🇹 Portuguese Republic</span>
+                  <span class="country-zh">🇵🇹 葡萄牙共和国</span>
+                </li>
+                <li data-country-id="italy">
+                  <span class="country-en">🇮🇹 Italian Republic</span>
+                  <span class="country-zh">🇮🇹 意大利共和国</span>
+                </li>
+                <li data-country-id="albania">
+                  <span class="country-en">🇦🇱 Republic of Albania</span>
+                  <span class="country-zh">🇦🇱 阿尔巴尼亚共和国</span>
+                </li>
+                <li data-country-id="andorra">
+                  <span class="country-en">🇦🇩 Principality of Andorra</span>
+                  <span class="country-zh">🇦🇩 安道尔公国</span>
+                </li>
+                <li data-country-id="austria">
+                  <span class="country-en">🇦🇹 Republic of Austria</span>
+                  <span class="country-zh">🇦🇹 奥地利共和国</span>
+                </li>
+                <li data-country-id="azerbaijan">
+                  <span class="country-en">🇦🇿 Republic of Azerbaijan</span>
+                  <span class="country-zh">🇦🇿 阿塞拜疆共和国</span>
+                </li>
+                <li data-country-id="belgium">
+                  <span class="country-en">🇧🇪 Kingdom of Belgium</span>
+                  <span class="country-zh">🇧🇪 比利时王国</span>
+                </li>
+                <li data-country-id="bosnia">
+                  <span class="country-en">🇧🇦 Bosnia and Herzegovina</span>
+                  <span class="country-zh">🇧🇦 波斯尼亚和黑塞哥维那</span>
+                </li>
+                <li data-country-id="bulgaria">
+                  <span class="country-en">🇧🇬 Republic of Bulgaria</span>
+                  <span class="country-zh">🇧🇬 保加利亚共和国</span>
+                </li>
+                <li data-country-id="croatia">
+                  <span class="country-en">🇭🇷 Republic of Croatia</span>
+                  <span class="country-zh">🇭🇷 克罗地亚共和国</span>
+                </li>
+                <li data-country-id="czechia">
+                  <span class="country-en">🇨🇿 Czech Republic</span>
+                  <span class="country-zh">🇨🇿 捷克共和国</span>
+                </li>
+                <li data-country-id="denmark">
+                  <span class="country-en">🇩🇰 Kingdom of Denmark</span>
+                  <span class="country-zh">🇩🇰 丹麦王国</span>
+                </li>
+                <li data-country-id="estonia">
+                  <span class="country-en">🇪🇪 Republic of Estonia</span>
+                  <span class="country-zh">🇪🇪 爱沙尼亚共和国</span>
+                </li>
+                <li data-country-id="germany">
+                  <span class="country-en">🇩🇪 Federal Republic of Germany</span>
+                  <span class="country-zh">🇩🇪 德意志联邦共和国</span>
+                </li>
+                <li data-country-id="greece">
+                  <span class="country-en">🇬🇷 Hellenic Republic</span>
+                  <span class="country-zh">🇬🇷 希腊共和国</span>
+                </li>
+                <li data-country-id="hungary">
+                  <span class="country-en">🇭🇺 Hungary</span>
+                  <span class="country-zh">🇭🇺 匈牙利</span>
+                </li>
+                <li data-country-id="iceland">
+                  <span class="country-en">🇮🇸 Iceland</span>
+                  <span class="country-zh">🇮🇸 冰岛</span>
+                </li>
+                <li data-country-id="ireland">
+                  <span class="country-en">🇮🇪 Ireland</span>
+                  <span class="country-zh">🇮🇪 爱尔兰</span>
+                </li>
+                <li data-country-id="kazakhstan">
+                  <span class="country-en">🇰🇿 Republic of Kazakhstan</span>
+                  <span class="country-zh">🇰🇿 哈萨克斯坦共和国</span>
+                </li>
+                <li data-country-id="latvia">
+                  <span class="country-en">🇱🇻 Republic of Latvia</span>
+                  <span class="country-zh">🇱🇻 拉脱维亚共和国</span>
+                </li>
+                <li data-country-id="liechtenstein">
+                  <span class="country-en">🇱🇮 Principality of Liechtenstein</span>
+                  <span class="country-zh">🇱🇮 列支敦士登公国</span>
+                </li>
+                <li data-country-id="lithuania">
+                  <span class="country-en">🇱🇹 Republic of Lithuania</span>
+                  <span class="country-zh">🇱🇹 立陶宛共和国</span>
+                </li>
+                <li data-country-id="luxembourg">
+                  <span class="country-en">🇱🇺 Grand Duchy of Luxembourg</span>
+                  <span class="country-zh">🇱🇺 卢森堡大公国</span>
+                </li>
+                <li data-country-id="monaco">
+                  <span class="country-en">🇲🇨 Principality of Monaco</span>
+                  <span class="country-zh">🇲🇨 摩纳哥公国</span>
+                </li>
+                <li data-country-id="montenegro">
+                  <span class="country-en">🇲🇪 Montenegro</span>
+                  <span class="country-zh">🇲🇪 黑山</span>
+                </li>
+                <li data-country-id="netherlands">
+                  <span class="country-en">🇳🇱 Kingdom of the Netherlands</span>
+                  <span class="country-zh">🇳🇱 荷兰王国</span>
+                </li>
+                <li data-country-id="north_macedonia">
+                  <span class="country-en">🇲🇰 Republic of North Macedonia</span>
+                  <span class="country-zh">🇲🇰 北马其顿共和国</span>
+                </li>
+                <li data-country-id="poland">
+                  <span class="country-en">🇵🇱 Republic of Poland</span>
+                  <span class="country-zh">🇵🇱 波兰共和国</span>
+                </li>
+                <li data-country-id="romania">
+                  <span class="country-en">🇷🇴 Romania</span>
+                  <span class="country-zh">🇷🇴 罗马尼亚</span>
+                </li>
+                <li data-country-id="san_marino">
+                  <span class="country-en">🇸🇲 Republic of San Marino</span>
+                  <span class="country-zh">🇸🇲 圣马力诺共和国</span>
+                </li>
+                <li data-country-id="serbia">
+                  <span class="country-en">🇷🇸 Republic of Serbia</span>
+                  <span class="country-zh">🇷🇸 塞尔维亚共和国</span>
+                </li>
+                <li data-country-id="slovakia">
+                  <span class="country-en">🇸🇰 Slovak Republic</span>
+                  <span class="country-zh">🇸🇰 斯洛伐克共和国</span>
+                </li>
+                <li data-country-id="slovenia">
+                  <span class="country-en">🇸🇮 Republic of Slovenia</span>
+                  <span class="country-zh">🇸🇮 斯洛文尼亚共和国</span>
+                </li>
+                <li data-country-id="switzerland">
+                  <span class="country-en">🇨🇭 Swiss Confederation</span>
+                  <span class="country-zh">🇨🇭 瑞士联邦</span>
+                </li>
+                <li data-country-id="turkey">
+                  <span class="country-en">🇹🇷 Republic of Turkiye</span>
+                  <span class="country-zh">🇹🇷 土耳其共和国</span>
+                </li>
+                <li data-country-id="vatican">
+                  <span class="country-en">🇻🇦 Vatican City State</span>
+                  <span class="country-zh">🇻🇦 梵蒂冈城国</span>
+                </li>
+              </ul>
+            </article>
+            <article class="card visited-continent-card is-asia is-wide">
+              <h3><span class="continent-en">Asia</span><span class="continent-zh">亚洲</span></h3>
+              <ul class="visited-country-list" role="list">
+                <li data-country-id="china">
+                  <span class="country-en">🇨🇳 People's Republic of China</span>
+                  <span class="country-zh">🇨🇳 中华人民共和国</span>
+                </li>
+                <li data-country-id="cambodia">
+                  <span class="country-en">🇰🇭 Kingdom of Cambodia</span>
+                  <span class="country-zh">🇰🇭 柬埔寨王国</span>
+                </li>
+                <li data-country-id="hong_kong">
+                  <span class="country-en">🇭🇰 Hong Kong Special Administrative Region of the People's Republic of China</span>
+                  <span class="country-zh">🇭🇰 中华人民共和国香港特别行政区</span>
+                </li>
+                <li data-country-id="indonesia">
+                  <span class="country-en">🇮🇩 Republic of Indonesia</span>
+                  <span class="country-zh">🇮🇩 印度尼西亚共和国</span>
+                </li>
+                <li data-country-id="israel">
+                  <span class="country-en">🇮🇱 State of Israel</span>
+                  <span class="country-zh">🇮🇱 以色列国</span>
+                </li>
+                <li data-country-id="japan">
+                  <span class="country-en">🇯🇵 Japan</span>
+                  <span class="country-zh">🇯🇵 日本国</span>
+                </li>
+                <li data-country-id="jordan">
+                  <span class="country-en">🇯🇴 Hashemite Kingdom of Jordan</span>
+                  <span class="country-zh">🇯🇴 约旦哈希姆王国</span>
+                </li>
+                <li data-country-id="lebanon">
+                  <span class="country-en">🇱🇧 Lebanese Republic</span>
+                  <span class="country-zh">🇱🇧 黎巴嫩共和国</span>
+                </li>
+                <li data-country-id="philippines">
+                  <span class="country-en">🇵🇭 Republic of the Philippines</span>
+                  <span class="country-zh">🇵🇭 菲律宾共和国</span>
+                </li>
+                <li data-country-id="saudi">
+                  <span class="country-en">🇸🇦 Kingdom of Saudi Arabia</span>
+                  <span class="country-zh">🇸🇦 沙特阿拉伯王国</span>
+                </li>
+                <li data-country-id="singapore">
+                  <span class="country-en">🇸🇬 Republic of Singapore</span>
+                  <span class="country-zh">🇸🇬 新加坡共和国</span>
+                </li>
+                <li data-country-id="south_korea">
+                  <span class="country-en">🇰🇷 Republic of Korea</span>
+                  <span class="country-zh">🇰🇷 大韩民国</span>
+                </li>
+                <li data-country-id="thailand">
+                  <span class="country-en">🇹🇭 Kingdom of Thailand</span>
+                  <span class="country-zh">🇹🇭 泰王国</span>
+                </li>
+                <li data-country-id="uzbekistan">
+                  <span class="country-en">🇺🇿 Republic of Uzbekistan</span>
+                  <span class="country-zh">🇺🇿 乌兹别克斯坦共和国</span>
+                </li>
+                <li data-country-id="turkmenistan">
+                  <span class="country-en">🇹🇲 Turkmenistan</span>
+                  <span class="country-zh">🇹🇲 土库曼斯坦</span>
+                </li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container">
-          <h2 data-i18n="page.next_title">Current Base</h2>
-          <div class="card">
-            <p class="meta" data-i18n="page.next_body">United States (currently studying in New York State).</p>
-          </div>
-        </div>
-      </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p data-i18n="page.footer">Travel is not only distance; it expands perspective and judgment.</p>
-      </div>
-    </footer>
-
-    <script src="../assets/js/main.js?v=20260324-11" defer></script>
-    <script src="../assets/js/travel-globe.bundle.js?v=20260324-13" defer></script>
+    <script src="../assets/js/main.js?v=20260326-opt1" defer></script>
   </body>
 </html>
