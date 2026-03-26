@@ -1001,16 +1001,34 @@
     }
   }
 
+  function runWhenIdle(task, timeout = 1200) {
+    if (typeof task !== "function") return;
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(
+        () => {
+          task();
+        },
+        { timeout }
+      );
+      return;
+    }
+
+    window.setTimeout(task, 80);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     if (!enforcePageVisibility()) return;
     initLanguageSystem();
     initMobileNav();
     initHeaderScrollState();
-    initRevealMotion();
-    initContactEmailCopy();
-    initSocialCards();
     initTravelVisualFade();
     initPhotographyVisualBlend();
     initTravelGlobeLoader();
+    runWhenIdle(() => {
+      initRevealMotion();
+      initContactEmailCopy();
+      initSocialCards();
+    });
   });
 })();
