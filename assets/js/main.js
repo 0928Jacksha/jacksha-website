@@ -4,11 +4,11 @@
   const STORAGE_KEY = "site-lang";
   const SUPPORTED_LANGS = ["en", "zh"];
   const DEFAULT_LANG = "en";
-  // Dormant pages stay in the codebase until explicitly re-enabled.
+  // Route availability is controlled here without changing file routing.
   const FEATURE_FLAGS = Object.freeze({
-    work: false,
-    life: false,
-    about: false
+    work: true,
+    life: true,
+    about: true
   });
   let activeLang = DEFAULT_LANG;
 
@@ -34,12 +34,26 @@
         home: {
           meta_title: "Home | Jack Sha",
           hero_title: "Jack Sha",
-          overview_title: "Site Overview",
+          hero_intro: "A personal archive shaped by movement, observation, and perspective.",
+          hero_action_travel: "Begin with Travel",
+          hero_action_photography: "View Photography",
+          hero_action_about: "Read About",
+          preview_title: "Three Dimensions",
+          preview_intro: "Travel records scale. Photography records atmosphere. Perspective records meaning.",
+          preview_travel_title: "Travel",
+          preview_travel_body: "Routes across continents, with attention to memory, movement, and context.",
+          preview_photography_title: "Photography",
+          preview_photography_body: "A restrained visual archive shaped by silence, distance, and light.",
+          preview_perspective_title: "Perspective",
+          preview_perspective_body: "Reflections from long-range experience, and the systems behind places.",
+          overview_title: "Continue Exploring",
           overview: {
             travel_title: "Travel",
-            travel_cta: "Go to Travel",
+            travel_cta: "Open Travel",
             photography_title: "Photography",
-            photography_cta: "Go to Photography"
+            photography_cta: "Open Photography",
+            about_title: "Perspective",
+            about_cta: "Open About"
           },
           footer: "Jack Sha / Sha Mo"
         },
@@ -70,6 +84,14 @@
           local_body: "Only by seeing the world firsthand can I recognize my own limits and gaps in perspective.",
           next_title: "Current Base",
           next_body: "United States (currently studying in New York State).",
+          flow_title: "Continue",
+          flow_intro: "From movement in space to movement in light, continue into the photographic archive or read the personal context behind the route.",
+          flow_photography_title: "Continue to Photography",
+          flow_photography_body: "A curated visual sequence shaped by distance, weather, and passing moments.",
+          flow_photography_cta: "Open Photography",
+          flow_about_title: "Read About",
+          flow_about_body: "Context behind the journeys, priorities, and current direction.",
+          flow_about_cta: "Open About",
           footer: "Travel is not only distance; it expands perspective and judgment."
         },
         photography: {
@@ -77,6 +99,8 @@
           hero_title: "Photography",
           visual_title: "The art of light",
           hero_intro: "Photographs made in transit, with attention to silence, distance, and passing human traces.",
+          method_title: "Approach",
+          method_note: "Each frame is chosen for rhythm before novelty.",
           gallery_title: "Selected Works",
           gallery_intro: "A sequenced edit from the larger archive, with slower transitions between anchor images.",
           gallery_enter_cta: "Enter Gallery",
@@ -103,6 +127,22 @@
           series_human_title: "Human Presence",
           series_human_body: "Figures and traces that shape a place without dominating it.",
           series_view_cta: "View selection",
+          flow_title: "Continue",
+          flow_intro: "Move from the selected edit into the full archive, or continue to the personal context behind the work.",
+          flow_gallery_title: "Open Full Gallery",
+          flow_gallery_body: "Browse the full sequence in a dedicated viewer.",
+          flow_gallery_cta: "Enter Gallery",
+          flow_about_title: "Read About",
+          flow_about_body: "Context behind how the images and route are connected.",
+          flow_about_cta: "Open About",
+          gallery_flow_title: "Continue",
+          gallery_flow_intro: "Return to the curated edit, or move to direct contact.",
+          gallery_flow_back_title: "Back to Photography",
+          gallery_flow_back_body: "Return to the selected sequence and series framing.",
+          gallery_flow_back_cta: "Open Photography",
+          gallery_flow_contact_title: "Get In Touch",
+          gallery_flow_contact_body: "For conversation, collaboration, or further context.",
+          gallery_flow_contact_cta: "Open Contact",
           footer: "Silence, distance, and quiet light."
         },
         work: {
@@ -123,6 +163,14 @@
           product_body: "System observation across cultures, practical reasoning, and real-world decision perspective.",
           collaboration_title: "Collaboration",
           collaboration_body: "Open to communication, collaboration, and conversations.",
+          flow_title: "Continue",
+          flow_intro: "For personal context, continue to About. For direct conversation, continue to Contact.",
+          flow_about_title: "Read About",
+          flow_about_body: "Background, direction, and the longer arc behind the work.",
+          flow_about_cta: "Open About",
+          flow_contact_title: "Get In Touch",
+          flow_contact_body: "Open to thoughtful communication and collaboration.",
+          flow_contact_cta: "Open Contact",
           footer: "Contact details can be added in the Contact page."
         },
         life: {
@@ -139,6 +187,11 @@
           art_body: "MoMA; Renaissance; Bernini; Impressionism.",
           film_title: "Films",
           film_body: "Scent of a Woman; Blade Runner 2049; La La Land; Interstellar; Whiplash.",
+          flow_title: "Continue",
+          flow_intro: "For the broader personal context behind these references, continue to About.",
+          flow_about_title: "Read About",
+          flow_about_body: "A wider view of direction, values, and trajectory.",
+          flow_about_cta: "Open About",
           footer: "Simple, personal, and still evolving."
         },
         about: {
@@ -156,6 +209,11 @@
           timeline_body: "2017: 50,000 km Europe road journey across 42 countries. Age 11: 2,200 km cycling expedition over 42 days. Ongoing: global travel across 60+ countries.",
           now_title: "Now",
           now_body: "Right now, I am focused on learning, not only academically but in a broader sense, and moving step by step toward the life I envision.",
+          flow_title: "Continue",
+          flow_intro: "If you want to continue the conversation, contact details are one step away.",
+          flow_contact_title: "Get In Touch",
+          flow_contact_body: "Open to thoughtful conversation, collaboration, and exchange.",
+          flow_contact_cta: "Open Contact",
           footer: "This site is my ongoing interpretation of who I am."
         },
         contact: {
@@ -211,12 +269,26 @@
         home: {
           meta_title: "首页 | 沙漠",
           hero_title: "沙漠",
-          overview_title: "网站概览",
+          hero_intro: "一个由移动、观察与视角构成的个人档案。",
+          hero_action_travel: "从旅行开始",
+          hero_action_photography: "查看摄影",
+          hero_action_about: "阅读关于",
+          preview_title: "三条主线",
+          preview_intro: "旅行记录尺度，摄影记录气氛，视角记录意义。",
+          preview_travel_title: "旅行",
+          preview_travel_body: "跨洲路线与在途中形成的记忆、移动与语境。",
+          preview_photography_title: "摄影",
+          preview_photography_body: "由安静、距离与光线构成的克制影像档案。",
+          preview_perspective_title: "视角",
+          preview_perspective_body: "来自长距离经验的思考，以及地点背后的系统观察。",
+          overview_title: "继续探索",
           overview: {
             travel_title: "旅行",
-            travel_cta: "进入旅行",
+            travel_cta: "进入旅行页",
             photography_title: "摄影",
-            photography_cta: "进入摄影"
+            photography_cta: "进入摄影页",
+            about_title: "视角",
+            about_cta: "进入关于页"
           },
           footer: "沙漠 / Jack Sha"
         },
@@ -247,6 +319,14 @@
           local_body: "只有亲眼看见世界，才能识别自己的局限，看见认知缺口",
           next_title: "当前落点",
           next_body: "美国（目前在纽约州学习）",
+          flow_title: "继续",
+          flow_intro: "从空间中的移动，进入光线中的移动。你可以继续进入摄影，也可以阅读背后的个人语境。",
+          flow_photography_title: "继续到摄影",
+          flow_photography_body: "一个由距离、天气与路途中瞬间构成的影像序列。",
+          flow_photography_cta: "进入摄影页",
+          flow_about_title: "阅读关于",
+          flow_about_body: "旅行路径背后的动机、判断与当前方向。",
+          flow_about_cta: "进入关于页",
           footer: "旅行不只是距离，更是视野与判断力的拓展"
         },
         photography: {
@@ -254,6 +334,8 @@
           hero_title: "摄影",
           visual_title: "光的艺术",
           hero_intro: "在移动中拍下的影像，关注安静、距离与人留下的痕迹",
+          method_title: "方法",
+          method_note: "每一张都先服从节奏，再追求新奇。",
           gallery_title: "精选作品",
           gallery_intro: "从更完整归档中抽出的顺序编辑，让主图与过渡更有呼吸",
           gallery_enter_cta: "进入画廊",
@@ -280,6 +362,22 @@
           series_human_title: "人的在场",
           series_human_body: "人物与痕迹出现，但不过度主导画面",
           series_view_cta: "查看该组",
+          flow_title: "继续",
+          flow_intro: "你可以从精选序列进入完整档案，或继续阅读这些影像背后的个人语境。",
+          flow_gallery_title: "打开完整画廊",
+          flow_gallery_body: "在独立查看器中浏览完整影像序列。",
+          flow_gallery_cta: "进入画廊",
+          flow_about_title: "阅读关于",
+          flow_about_body: "了解影像与旅行如何在方法上连接。",
+          flow_about_cta: "进入关于页",
+          gallery_flow_title: "继续",
+          gallery_flow_intro: "返回精选编辑，或直接进入联系。",
+          gallery_flow_back_title: "返回摄影页",
+          gallery_flow_back_body: "回到精选序列与系列框架。",
+          gallery_flow_back_cta: "进入摄影页",
+          gallery_flow_contact_title: "取得联系",
+          gallery_flow_contact_body: "用于交流、合作或进一步沟通。",
+          gallery_flow_contact_cta: "进入联系页",
           footer: "安静、距离与光线的笔记"
         },
         work: {
@@ -300,6 +398,14 @@
           product_body: "跨文化系统观察、现实场景判断、以及从实践中提炼方法",
           collaboration_title: "合作",
           collaboration_body: "开放沟通、合作与交流",
+          flow_title: "继续",
+          flow_intro: "如果想看更完整的个人背景，请进入关于页；如果想直接交流，请进入联系页。",
+          flow_about_title: "阅读关于",
+          flow_about_body: "查看经历背后的长期方向与个人脉络。",
+          flow_about_cta: "进入关于页",
+          flow_contact_title: "取得联系",
+          flow_contact_body: "开放交流与合作沟通。",
+          flow_contact_cta: "进入联系页",
           footer: "联系方式可在 Contact 页面后续补充"
         },
         life: {
@@ -316,6 +422,11 @@
           art_body: "MoMA；文艺复兴；贝尼尼；印象派",
           film_title: "电影",
           film_body: "《闻香识女人》；《银翼杀手2049》；La La Land；《星际穿越》；《爆裂鼓手》",
+          flow_title: "继续",
+          flow_intro: "如果想看这些偏好背后的更完整背景，请继续进入关于页。",
+          flow_about_title: "阅读关于",
+          flow_about_body: "了解更完整的方向、价值观与路径。",
+          flow_about_cta: "进入关于页",
           footer: "保持简单，持续生长"
         },
         about: {
@@ -333,6 +444,11 @@
           timeline_body: "2017：欧洲 5 万公里自驾，42 国11 岁：2200 公里骑行远征，42 天持续：60+ 国家旅行经历",
           now_title: "现在",
           now_body: "现在的我在学习，不仅是学业上的学习，更是在为未来想要成为的自己做准备",
+          flow_title: "继续",
+          flow_intro: "如果你希望继续对话，联系页就在下一步。",
+          flow_contact_title: "取得联系",
+          flow_contact_body: "开放交流、合作与进一步沟通。",
+          flow_contact_cta: "进入联系页",
           footer: "这个网站是我对自己的持续诠释"
         },
         contact: {
@@ -884,6 +1000,7 @@
 
     const visualSection = document.querySelector("[data-travel-visual]");
     const visualPin = document.querySelector("[data-travel-visual-pin]");
+    const globeSection = document.querySelector("[data-travel-globe-section]");
     if (!visualSection || !visualPin) return;
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -914,14 +1031,35 @@
       if (!isVisualInRange) return;
       const progressLinear = clamp((window.scrollY - start) / distance, 0, 1);
       const progressEased = easeInOutCubic(progressLinear);
-      const colorPulse = Math.sin(progressEased * Math.PI) * 0.14;
-      const copyA = 1 - smoothstep(0.18, 0.58, progressEased);
-      const copyB = smoothstep(0.42, 0.88, progressEased);
+      const fadeMix = smoothstep(0.16, 0.8, progressEased);
+      const layerAFocus = 1 - smoothstep(0.18, 0.62, progressEased);
+      const layerBFocus = smoothstep(0.3, 0.9, progressEased);
+      const layerAScale = 1 + layerAFocus * 0.018;
+      const layerAY = -8 * layerAFocus;
+      const layerBScale = 1.055 - layerBFocus * 0.026;
+      const layerBY = (1 - layerBFocus) * 14;
+      const copyA = 1 - smoothstep(0.14, 0.47, progressEased);
+      const copyB = smoothstep(0.44, 0.84, progressEased);
+      const copyAShift = smoothstep(0.2, 0.62, progressEased) * 14;
+      const copyBShift = (1 - copyB) * 20;
+      const colorPulse = Math.sin(progressEased * Math.PI) * 0.06;
+      const exitShade = smoothstep(0.72, 1, progressEased) * 0.26;
+      const colorAlpha = clamp(colorPulse + exitShade, 0, 0.34);
+      const globeIntro = smoothstep(0.68, 0.98, progressEased);
 
-      visualPin.style.setProperty("--travel-fade", progressEased.toFixed(4));
-      visualPin.style.setProperty("--travel-color-alpha", colorPulse.toFixed(4));
+      visualPin.style.setProperty("--travel-fade", fadeMix.toFixed(4));
+      visualPin.style.setProperty("--travel-color-alpha", colorAlpha.toFixed(4));
       visualPin.style.setProperty("--travel-copy-a", copyA.toFixed(4));
       visualPin.style.setProperty("--travel-copy-b", copyB.toFixed(4));
+      visualPin.style.setProperty("--travel-layer-a-scale", layerAScale.toFixed(4));
+      visualPin.style.setProperty("--travel-layer-a-y", `${layerAY.toFixed(2)}px`);
+      visualPin.style.setProperty("--travel-layer-b-scale", layerBScale.toFixed(4));
+      visualPin.style.setProperty("--travel-layer-b-y", `${layerBY.toFixed(2)}px`);
+      visualPin.style.setProperty("--travel-copy-a-shift", `${copyAShift.toFixed(2)}px`);
+      visualPin.style.setProperty("--travel-copy-b-shift", `${copyBShift.toFixed(2)}px`);
+      if (globeSection) {
+        globeSection.style.setProperty("--globe-intro", globeIntro.toFixed(4));
+      }
     }
 
     let frame = 0;

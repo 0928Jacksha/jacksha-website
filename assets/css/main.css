@@ -332,6 +332,15 @@ body[data-page="travel"] .section h2 {
   color: rgba(245, 239, 226, 0.78);
 }
 
+body[data-page="travel"] .section-continuation .continuation-card {
+  border-color: rgba(245, 239, 226, 0.22);
+  background: rgba(245, 239, 226, 0.04);
+}
+
+body[data-page="travel"] .section-continuation .continuation-link {
+  color: rgba(245, 239, 226, 0.9);
+}
+
 body[data-page="travel"] .lang-toggle button {
   color: rgba(245, 239, 226, 0.76);
 }
@@ -431,6 +440,15 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
   background: rgba(245, 239, 226, 0.08);
 }
 
+body[data-page="photography"] .section-continuation .continuation-card {
+  border-color: rgba(245, 239, 226, 0.22);
+  background: rgba(245, 239, 226, 0.04);
+}
+
+body[data-page="photography"] .section-continuation .continuation-link {
+  color: rgba(245, 239, 226, 0.9);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -459,6 +477,12 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
   --travel-color-alpha: 0;
   --travel-copy-a: 1;
   --travel-copy-b: 0;
+  --travel-layer-a-scale: 1;
+  --travel-layer-a-y: 0px;
+  --travel-layer-b-scale: 1.05;
+  --travel-layer-b-y: 16px;
+  --travel-copy-a-shift: 0px;
+  --travel-copy-b-shift: 18px;
 }
 
 .travel-visual-layer,
@@ -470,19 +494,21 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
 .travel-visual-layer {
   background-size: cover;
   background-repeat: no-repeat;
-  will-change: opacity;
+  will-change: opacity, transform;
 }
 
 .travel-visual-layer-a {
   background-image: url("../images/travel-visual-a.jpg");
   background-position: center 44%;
   opacity: calc(1 - var(--travel-fade));
+  transform: translate3d(0, var(--travel-layer-a-y), 0) scale(var(--travel-layer-a-scale));
 }
 
 .travel-visual-layer-b {
   background-image: url("../images/travel-visual-b.jpg");
   background-position: center 42%;
   opacity: var(--travel-fade);
+  transform: translate3d(0, var(--travel-layer-b-y), 0) scale(var(--travel-layer-b-scale));
 }
 
 .travel-visual-color {
@@ -510,13 +536,13 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
 .travel-visual-copy-a {
   color: rgba(244, 236, 220, 0.9);
   opacity: var(--travel-copy-a);
-  transform: translateY(calc((1 - var(--travel-copy-a)) * 16px));
+  transform: translateY(var(--travel-copy-a-shift));
 }
 
 .travel-visual-copy-b {
   color: rgba(242, 239, 232, 0.92);
   opacity: var(--travel-copy-b);
-  transform: translateY(calc((1 - var(--travel-copy-b)) * 16px));
+  transform: translateY(var(--travel-copy-b-shift));
 }
 
 .photo-visual {
@@ -643,7 +669,13 @@ body[data-page="photography"] .section-emphasis .grid .card:hover {
 }
 
 .section-globe {
+  --globe-intro: 1;
   padding-top: var(--space-6);
+}
+
+.section-globe > .container {
+  opacity: calc(0.58 + (var(--globe-intro) * 0.42));
+  transform: translate3d(0, calc((1 - var(--globe-intro)) * 24px), 0);
 }
 
 .travel-globe-shell {
@@ -915,6 +947,48 @@ html[lang="zh-CN"] .country-zh {
   max-width: 44ch;
 }
 
+.hero-home-actions {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-home-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid rgba(247, 245, 239, 0.3);
+  background: rgba(247, 245, 239, 0.04);
+  color: rgba(247, 245, 239, 0.88);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-soft),
+    border-color var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft),
+    color var(--duration-fast) var(--ease-soft);
+}
+
+.hero-home-action.is-primary {
+  background: rgba(247, 245, 239, 0.16);
+  border-color: rgba(247, 245, 239, 0.44);
+  color: #f7f5ef;
+}
+
+.hero-home-action:hover {
+  transform: translateY(-1px);
+  border-color: rgba(247, 245, 239, 0.62);
+  background: rgba(247, 245, 239, 0.24);
+  color: #f7f5ef;
+}
+
 .hero h1 {
   margin: 0 0 var(--space-3);
   font-size: clamp(2.2rem, 4.6vw, 3.5rem);
@@ -1024,6 +1098,10 @@ main h3:not(.sr-only):hover::after,
 
 .grid-2 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .overview-grid {
@@ -1393,6 +1471,22 @@ button:active,
   text-decoration: none;
 }
 
+.gallery-enter-button-premium {
+  min-width: 190px;
+  border-color: rgba(245, 239, 226, 0.36);
+  background:
+    linear-gradient(140deg, rgba(245, 239, 226, 0.12) 0%, rgba(245, 239, 226, 0.04) 100%),
+    rgba(8, 8, 8, 0.34);
+  color: rgba(245, 239, 226, 0.92);
+}
+
+.gallery-enter-button-premium:hover {
+  border-color: rgba(245, 239, 226, 0.52);
+  background:
+    linear-gradient(140deg, rgba(245, 239, 226, 0.2) 0%, rgba(245, 239, 226, 0.08) 100%),
+    rgba(8, 8, 8, 0.34);
+}
+
 .form-status {
   font-size: 0.84rem;
   color: var(--muted);
@@ -1415,6 +1509,10 @@ button:active,
 .section-emphasis .grid .card:hover {
   border-color: var(--border);
   background: #fdfcf8;
+}
+
+.section-home-preview .card {
+  min-height: 100%;
 }
 
 .photo-note-card {
@@ -1575,8 +1673,8 @@ button:active,
   filter: saturate(1) contrast(1);
   transition:
     opacity var(--duration-fast) var(--ease-soft),
-    transform var(--duration-base) var(--ease-soft),
-    filter var(--duration-base) var(--ease-soft);
+    transform 210ms var(--ease-soft),
+    filter 170ms var(--ease-soft);
 }
 
 .gallery-item img.is-pending,
@@ -1621,11 +1719,16 @@ button:active,
   opacity: 0.42;
 }
 
-.gallery-item:hover img,
-.gallery-item:focus-within img {
+.gallery-item:hover img {
   opacity: 0.992;
-  transform: scale(1.015);
-  filter: contrast(1.02);
+  transform: scale(1.01);
+  filter: brightness(1.01) contrast(1.026) saturate(1.01);
+}
+
+.gallery-item:focus-within img {
+  opacity: 0.995;
+  transform: scale(1.01);
+  filter: brightness(1.03) contrast(1.04) saturate(1.015);
 }
 
 .gallery-item.is-loading img.is-pending {
@@ -1657,6 +1760,44 @@ button:active,
 
 .gallery-page-back a:hover {
   color: var(--text);
+}
+
+.section-continuation .container {
+  gap: var(--space-2);
+}
+
+.continuation-grid {
+  width: 100%;
+}
+
+.continuation-card {
+  min-height: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+
+.continuation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.continuation-link::after {
+  content: "\2192";
+  transform: translateX(0);
+  transition: transform var(--duration-fast) var(--ease-soft);
+}
+
+.continuation-link:hover::after,
+.continuation-link:focus-visible::after {
+  transform: translateX(3px);
 }
 
 .gallery-status {
@@ -1729,8 +1870,8 @@ button:active,
   filter: saturate(1) contrast(1);
   transition:
     opacity var(--duration-fast) var(--ease-soft),
-    transform var(--duration-base) var(--ease-soft),
-    filter var(--duration-base) var(--ease-soft);
+    transform 210ms var(--ease-soft),
+    filter 170ms var(--ease-soft);
 }
 
 .gallery-full-item.is-featured,
@@ -1851,12 +1992,17 @@ button:active,
   opacity: 0.42;
 }
 
-.gallery-full-item:hover img,
+.gallery-full-item:hover img {
+  opacity: 0.992;
+  transform: scale(1.01);
+  filter: brightness(1.01) contrast(1.026) saturate(1.01);
+}
+
 .gallery-full-item:focus-within img,
 .gallery-full-item:active img {
-  opacity: 0.992;
-  transform: scale(1.015);
-  filter: contrast(1.02);
+  opacity: 0.995;
+  transform: scale(1.01);
+  filter: brightness(1.03) contrast(1.04) saturate(1.015);
 }
 
 .gallery-full-item.is-loading img.is-pending {
@@ -2382,6 +2528,16 @@ body.is-lightbox-open {
     grid-template-columns: 1fr;
   }
 
+  .hero-home-actions {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .hero-home-action {
+    width: 100%;
+    justify-content: center;
+  }
+
   body[data-page="home"] .site-header {
     border-bottom-color: rgba(247, 245, 239, 0.16);
   }
@@ -2538,6 +2694,10 @@ body.is-lightbox-open {
     transition: none;
   }
 
+  .continuation-link::after {
+    transition: none;
+  }
+
   .card:not(form)::before {
     transition: none;
   }
@@ -2553,7 +2713,10 @@ body.is-lightbox-open {
   .gallery-full-item::before,
   .gallery-full-item img,
   .gallery-lightbox,
-  .gallery-lightbox-frame {
+  .gallery-lightbox-frame,
+  .travel-visual-layer,
+  .travel-visual-copy,
+  .section-globe > .container {
     transition: none;
   }
 
