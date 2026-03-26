@@ -10,7 +10,6 @@ Clean multi-page website foundation focused on structure and navigation.
   - `photography.html`
   - `work.html`
   - `life.html`
-  - `about.html`
   - `contact.html`
 - Assets: `assets/`
   - `css/main.css`
