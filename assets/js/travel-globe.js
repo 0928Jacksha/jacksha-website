@@ -1,8 +1,81 @@
 import * as THREE from "../vendor/three/three.module.js";
 import { OrbitControls } from "../vendor/three/examples/jsm/controls/OrbitControls.js";
 
-const EARTH_ATMOS_TEXTURE_URL = "/assets/images/earth-atmos-1024.jpg";
-const EARTH_NORMAL_TEXTURE_URL = "/assets/images/earth-normal-1024.jpg";
+const EARTH_ATMOS_TEXTURE_NAME = "earth-atmos-1024.jpg";
+const EARTH_NORMAL_TEXTURE_NAME = "earth-normal-1024.jpg";
+const FALLBACK_COLOR_TEXTURE_URLS = [
+  "https://cdn.jsdelivr.net/gh/0928Jacksha/jacksha-website@main/assets/images/earth-atmos-1024.jpg",
+  "https://raw.githubusercontent.com/0928Jacksha/jacksha-website/main/assets/images/earth-atmos-1024.jpg",
+  "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg"
+];
+const FALLBACK_NORMAL_TEXTURE_URLS = [
+  "https://cdn.jsdelivr.net/gh/0928Jacksha/jacksha-website@main/assets/images/earth-normal-1024.jpg",
+  "https://raw.githubusercontent.com/0928Jacksha/jacksha-website/main/assets/images/earth-normal-1024.jpg",
+  "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg"
+];
+
+function uniqueUrls(urls) {
+  return [...new Set(urls.filter((url) => typeof url === "string" && url.length > 0))];
+}
+
+function resolveTextureCandidates(fileName) {
+  const urls = [];
+  const activeScript = document.querySelector("script[data-travel-globe='true']");
+
+  if (activeScript instanceof HTMLScriptElement && activeScript.src) {
+    urls.push(new URL(`../images/${fileName}`, activeScript.src).href);
+  }
+
+  urls.push(new URL(`../assets/images/${fileName}`, window.location.href).href);
+  urls.push(`/assets/images/${fileName}`);
+
+  if (fileName === EARTH_ATMOS_TEXTURE_NAME) {
+    urls.push(...FALLBACK_COLOR_TEXTURE_URLS);
+  } else if (fileName === EARTH_NORMAL_TEXTURE_NAME) {
+    urls.push(...FALLBACK_NORMAL_TEXTURE_URLS);
+  }
+
+  return uniqueUrls(urls);
+}
+
+function createEmergencyEarthTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  const oceanGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  oceanGradient.addColorStop(0, "#2d476e");
+  oceanGradient.addColorStop(1, "#16263d");
+  ctx.fillStyle = oceanGradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const continents = [
+    [160, 170, 130, 100, 0.2],
+    [280, 300, 120, 90, -0.3],
+    [420, 180, 150, 110, 0.1],
+    [535, 270, 95, 80, -0.4],
+    [655, 150, 210, 130, 0.06],
+    [820, 255, 120, 95, 0.32]
+  ];
+  ctx.fillStyle = "#7b9f6a";
+  continents.forEach(([x, y, w, h, rot]) => {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  return texture;
+}
 
 const visitedLocations = [
   { id: "egypt", en: "Egypt", zh: "埃及", lat: 26.8, lng: 30.8 },
@@ -462,10 +535,12 @@ function initTravelGlobe() {
   globeGroup.add(atmosphere);
 
   const textureLoader = new THREE.TextureLoader();
+  textureLoader.setCrossOrigin("anonymous");
   const anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-  function applyTexture(texture, assign) {
-    texture.colorSpace = THREE.SRGBColorSpace;
+  function applyTexture(texture, assign, options = {}) {
+    const { colorSpace = THREE.NoColorSpace } = options;
+    texture.colorSpace = colorSpace;
     texture.anisotropy = anisotropy;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
@@ -473,27 +548,81 @@ function initTravelGlobe() {
     globeMaterial.needsUpdate = true;
   }
 
-  textureLoader.load(
-    EARTH_ATMOS_TEXTURE_URL,
+  function loadTextureWithFallback(urls, onLoaded, options = {}) {
+    const queue = uniqueUrls(Array.isArray(urls) ? urls : [urls]);
+    const { label = "texture", onAllFailed } = options;
+
+    function attempt(index) {
+      if (index >= queue.length) {
+        console.error(`[travel-globe] All ${label} paths failed`, queue);
+        if (typeof onAllFailed === "function") onAllFailed();
+        return;
+      }
+
+      const url = queue[index];
+      textureLoader.load(
+        url,
+        (texture) => {
+          console.info(`[travel-globe] Loaded ${label}: ${url}`);
+          onLoaded(texture, url);
+        },
+        undefined,
+        (error) => {
+          console.warn(
+            `[travel-globe] Failed ${label} (${index + 1}/${queue.length}): ${url}`,
+            error
+          );
+          attempt(index + 1);
+        }
+      );
+    }
+
+    attempt(0);
+  }
+
+  const colorTextureUrls = resolveTextureCandidates(EARTH_ATMOS_TEXTURE_NAME);
+  const normalTextureUrls = resolveTextureCandidates(EARTH_NORMAL_TEXTURE_NAME);
+
+  loadTextureWithFallback(
+    colorTextureUrls,
     (texture) => {
-      applyTexture(texture, (next) => {
-        globeMaterial.map = next;
-      });
+      applyTexture(
+        texture,
+        (next) => {
+          globeMaterial.map = next;
+        },
+        { colorSpace: THREE.SRGBColorSpace }
+      );
     },
-    undefined,
-    () => {}
+    {
+      label: "earth color map",
+      onAllFailed: () => {
+        const emergencyMap = createEmergencyEarthTexture();
+        if (emergencyMap) {
+          applyTexture(
+            emergencyMap,
+            (next) => {
+              globeMaterial.map = next;
+            },
+            { colorSpace: THREE.SRGBColorSpace }
+          );
+          globeMaterial.emissiveIntensity = 0.08;
+          toneLayer.material.opacity = 0.02;
+          console.error("[travel-globe] Using emergency earth map fallback.");
+        }
+      }
+    }
   );
 
-  textureLoader.load(
-    EARTH_NORMAL_TEXTURE_URL,
+  loadTextureWithFallback(
+    normalTextureUrls,
     (texture) => {
       applyTexture(texture, (next) => {
         globeMaterial.normalMap = next;
         globeMaterial.normalScale = new THREE.Vector2(0.8, 0.8);
       });
     },
-    undefined,
-    () => {}
+    { label: "earth normal map" }
   );
 
   const markerGroup = new THREE.Group();
