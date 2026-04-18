@@ -843,6 +843,78 @@
     }
   };
 
+  function getConnectionInfo() {
+    return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+  }
+
+  function detectPerformanceProfile() {
+    const connection = getConnectionInfo();
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const viewportWidth = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0);
+    const hardwareConcurrency = Number(navigator.hardwareConcurrency || 0);
+    const deviceMemory = Number(navigator.deviceMemory || 0);
+    const saveData = Boolean(connection && connection.saveData);
+    const effectiveType = String((connection && connection.effectiveType) || "").toLowerCase();
+    const slowConnection = effectiveType === "slow-2g" || effectiveType === "2g";
+    const constrained =
+      prefersReducedMotion ||
+      saveData ||
+      slowConnection ||
+      (deviceMemory > 0 && deviceMemory <= 4) ||
+      (hardwareConcurrency > 0 && hardwareConcurrency <= 4) ||
+      (coarsePointer && viewportWidth <= 900);
+    const balanced =
+      !constrained &&
+      ((deviceMemory > 0 && deviceMemory <= 8) ||
+        (hardwareConcurrency > 0 && hardwareConcurrency <= 8) ||
+        viewportWidth <= 1280 ||
+        coarsePointer);
+    const tier = constrained ? "constrained" : balanced ? "balanced" : "full";
+
+    return {
+      tier,
+      allowTelemetry: tier === "full",
+      allowIntroLock: tier === "full",
+      allowBridgeEffects: tier === "full",
+      simplifyStoryEffects: tier !== "full",
+      heavyInitDelayMs: tier === "full" ? 120 : 220,
+      syncDelayMs: tier === "constrained" ? 180 : 90,
+      maxRepoPages: tier === "full" ? 4 : tier === "balanced" ? 3 : 2
+    };
+  }
+
+  const PERFORMANCE_PROFILE = detectPerformanceProfile();
+
+  function applyPerformanceProfile(profile) {
+    if (!document.body) return;
+    document.body.dataset.codePerformance = profile.tier;
+  }
+
+  function scheduleDeferredTask(task, options) {
+    const settings = options || {};
+    const delayMs = Math.max(Number(settings.delayMs || 0), 0);
+    const timeoutMs = Math.max(Number(settings.timeoutMs || 120), 1);
+
+    const runTask = () => {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(() => {
+          task();
+        }, { timeout: timeoutMs });
+        return;
+      }
+
+      window.setTimeout(task, 0);
+    };
+
+    if (delayMs > 0) {
+      window.setTimeout(runTask, delayMs);
+      return;
+    }
+
+    runTask();
+  }
+
   const RAIN_HERO_LINES = Object.freeze([
     "Placeholder Line 1",
     "Placeholder Line 2",
@@ -2026,6 +2098,7 @@
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const state = {
       reducedMotion: motionQuery.matches,
+      simplifiedEffects: PERFORMANCE_PROFILE.simplifyStoryEffects,
       frameId: 0,
       resizeObserver: null,
       lockedScrollTop: null,
@@ -2082,7 +2155,7 @@
 
       if (!state.copyGlyphs.length) return;
 
-      if (state.reducedMotion) {
+      if (state.reducedMotion || state.simplifiedEffects) {
         state.copyGlyphs.forEach((glyph) => {
           glyph.style.opacity = "";
           glyph.style.transform = "";
@@ -2130,32 +2203,34 @@
         0.06,
         0.92
       );
-      const pulseStrength = state.reducedMotion ? 0.03 : lerp(0.03, 0.1, Math.max(colorReturn, copyReveal));
+      const pulseStrength = state.reducedMotion ? 0.03 : lerp(0.03, state.simplifiedEffects ? 0.06 : 0.1, Math.max(colorReturn, copyReveal));
       const imageOpacity = clamp(lerp(0, 1, easeOutCubic(imageIntro)), 0, 1);
       const imageScale = state.reducedMotion ? 1 : lerp(1.08, 1, Math.max(imageDeblur, colorReturn));
-      const imageBlur = state.reducedMotion ? 0 : lerp(18, 0, imageDeblur);
+      const imageBlur = state.reducedMotion ? 0 : lerp(state.simplifiedEffects ? 8 : 18, 0, imageDeblur);
       const monoBrightness = lerp(0.24, 0.76, monoHold);
       const monoSaturate = lerp(0.06, 0.16, monoHold);
       const imageBrightness = lerp(monoBrightness, 1, colorReturn);
       const imageSaturate = lerp(monoSaturate, 1, colorReturn);
       const imageMonochrome = lerp(0.98, 0, colorReturn);
-      const telemetryOpacity = state.reducedMotion
-        ? clamp(1 - telemetryFade * 0.72, 0.22, 1)
-        : clamp(1 - telemetryFade * 0.94, 0.06, 1);
+      const telemetryOpacity = state.reducedMotion || !PERFORMANCE_PROFILE.allowTelemetry
+        ? 0
+        : state.reducedMotion
+          ? clamp(1 - telemetryFade * 0.72, 0.22, 1)
+          : clamp(1 - telemetryFade * 0.94, 0.06, 1);
       const copyOpacity = copyPresence;
-      const copyY = state.reducedMotion ? 0 : lerp(20, 0, copyRevealEased) + copyDissolveEased * 16;
-      const copyBlur = state.reducedMotion ? 0 : (1 - copyRevealEased) * 4.2 + copyDissolveEased * 9.5;
-      const copySheen = clamp(copyRevealEased * (1 - copyDissolveEased * 0.65), 0, 1);
-      const waterOpacity = state.reducedMotion
+      const copyY = state.reducedMotion ? 0 : lerp(20, 0, copyRevealEased) + copyDissolveEased * (state.simplifiedEffects ? 8 : 16);
+      const copyBlur = state.reducedMotion ? 0 : (1 - copyRevealEased) * (state.simplifiedEffects ? 1.8 : 4.2) + copyDissolveEased * (state.simplifiedEffects ? 3.6 : 9.5);
+      const copySheen = state.simplifiedEffects ? 0 : clamp(copyRevealEased * (1 - copyDissolveEased * 0.65), 0, 1);
+      const waterOpacity = state.reducedMotion || state.simplifiedEffects
         ? 0
         : clamp(copyRevealEased * 0.42 + copyDissolveEased * 0.92, 0, 1);
-      const waterFlowX = state.reducedMotion
+      const waterFlowX = state.reducedMotion || state.simplifiedEffects
         ? 0
         : Math.sin(progress * Math.PI * 8.4 + copyDissolveEased * 2.2) * (2 + 18 * copyDissolveEased);
-      const waterFlowY = state.reducedMotion
+      const waterFlowY = state.reducedMotion || state.simplifiedEffects
         ? 0
         : copyDissolveEased * 24 + Math.sin(progress * Math.PI * 6.2 + 0.8) * (1.4 + 4.2 * copyDissolveEased);
-      const waterWave = state.reducedMotion
+      const waterWave = state.reducedMotion || state.simplifiedEffects
         ? 0
         : clamp(copyDissolveEased * 1.08 + copyHold * 0.16, 0, 1);
 
@@ -2198,6 +2273,14 @@
       const entryBlend = easeInOutSine(
         progressBetween(viewportHeight - rect.top, viewportHeight * 0.1, viewportHeight * 0.82)
       );
+
+      if (!PERFORMANCE_PROFILE.allowBridgeEffects) {
+        rainHero.style.setProperty("--code-rain-bridge-opacity", (entryBlend * 0.4).toFixed(3));
+        rainHero.style.setProperty("--code-rain-video-dim", lerp(0, 0.16, entryBlend).toFixed(3));
+        rainHero.style.setProperty("--code-rain-video-blur", "0px");
+        rainHero.style.setProperty("--code-rain-video-scale", "1.01");
+        return;
+      }
 
       rainHero.style.setProperty("--code-rain-bridge-opacity", entryBlend.toFixed(3));
       rainHero.style.setProperty("--code-rain-video-dim", lerp(0, 0.58, entryBlend).toFixed(3));
@@ -2317,6 +2400,7 @@
   }
 
   function createTelemetryWallController(introStore) {
+    if (!PERFORMANCE_PROFILE.allowTelemetry) return null;
     const root = document.querySelector("[data-code-breath-story]");
     const canvas = root ? root.querySelector("[data-code-breath-telemetry]") : null;
     if (!root || !canvas || typeof canvas.getContext !== "function") return null;
@@ -4892,9 +4976,11 @@
     const repositories = [];
     let page = 1;
     const perPage = 100;
+    const maxPages = PERFORMANCE_PROFILE.maxRepoPages;
+    const targetCount = Math.max(CONFIG.maxProjects + 18, TARGET_REPOSITORIES.length * 6, 60);
     let partial = false;
 
-    while (page <= 10) {
+    while (page <= maxPages) {
       const endpoint = `https://api.github.com/users/${encodeURIComponent(
         username
       )}/repos?type=owner&sort=updated&per_page=${perPage}&page=${page}`;
@@ -4912,7 +4998,11 @@
       repositories.push(...chunk);
 
       if (chunk.length < perPage) break;
-      if (page === 10) {
+      if (repositories.length >= targetCount && page >= 2) {
+        partial = true;
+        break;
+      }
+      if (page === maxPages) {
         partial = true;
         break;
       }
@@ -5500,23 +5590,36 @@
     });
   }
 
-  async function init() {
-    state.syncHistory = readHistory();
-    const codeWallIntroStore = createCodeWallIntroStore();
-    const codeHeaderController = createCodeHeaderController();
-    if (codeHeaderController) codeHeaderController.init();
-    const nestedScrollHandoffController = createNestedScrollHandoffController();
-    if (nestedScrollHandoffController) nestedScrollHandoffController.init();
+  function initHeavyControllers() {
+    const codeWallIntroStore = PERFORMANCE_PROFILE.allowIntroLock ? createCodeWallIntroStore() : null;
     const rainHeroController = createRainHeroController();
     if (rainHeroController) rainHeroController.init();
     const breathStoryController = createBreathStoryController(codeWallIntroStore);
     if (breathStoryController) breathStoryController.init();
     const telemetryWallController = createTelemetryWallController(codeWallIntroStore);
     if (telemetryWallController) telemetryWallController.init();
+  }
+
+  function init() {
+    state.syncHistory = readHistory();
+    applyPerformanceProfile(PERFORMANCE_PROFILE);
+    const codeHeaderController = createCodeHeaderController();
+    if (codeHeaderController) codeHeaderController.init();
+    const nestedScrollHandoffController = createNestedScrollHandoffController();
+    if (nestedScrollHandoffController) nestedScrollHandoffController.init();
     bindControls();
     bindLanguageObserver();
     renderCurrentView();
-    await syncData({ force: false, manual: false });
+    scheduleDeferredTask(initHeavyControllers, {
+      delayMs: PERFORMANCE_PROFILE.heavyInitDelayMs,
+      timeoutMs: PERFORMANCE_PROFILE.heavyInitDelayMs + 240
+    });
+    scheduleDeferredTask(() => {
+      void syncData({ force: false, manual: false });
+    }, {
+      delayMs: PERFORMANCE_PROFILE.syncDelayMs,
+      timeoutMs: PERFORMANCE_PROFILE.syncDelayMs + 240
+    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
