@@ -20,6 +20,8 @@ dist/
 build/
 coverage/
 .vercel/
+.playwright-cli/
+output/
 
 # Logs
 *.log

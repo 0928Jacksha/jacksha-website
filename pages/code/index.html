@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code Docs System | Jack Sha</title>
+    <meta
+      name="description"
+      content="Repository documentation system with schema-driven modules, onboarding paths, and deep capability navigation."
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://jacksha.com/pages/code/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Code Docs System | Jack Sha" />
+    <meta
+      property="og:description"
+      content="A product-grade documentation interface with persistent module hierarchy and active content panels for every repository."
+    />
+    <meta property="og:url" content="https://jacksha.com/pages/code/index.html" />
+    <link rel="stylesheet" href="../../assets/css/main.css?v=20260411d" />
+    <link rel="stylesheet" href="../../assets/css/work.css?v=20260411d" />
+  </head>
+  <body data-page="work" data-code-app="shell">
+    <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Main navigation" data-i18n-attr="aria-label:common.nav_aria">
+          <a href="../../index.html" data-i18n="common.nav.home">Home</a>
+          <a href="../travel.html" data-i18n="common.nav.travel">Travel</a>
+          <a href="../photography.html" data-i18n="common.nav.photography">Photography</a>
+          <a href="./index.html" aria-current="page" data-i18n="common.nav.code">Code</a>
+          <a href="../contact.html" data-i18n="common.nav.contact">Contact</a>
+          <div class="lang-toggle" role="group" aria-label="Language switch" data-i18n-attr="aria-label:common.lang_aria">
+            <button type="button" data-lang-switch="en" data-i18n="common.lang_en" aria-pressed="true">EN</button>
+            <button type="button" data-lang-switch="zh" data-i18n="common.lang_zh" aria-pressed="false">中文</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="code-page code-app-page">
+      <section class="code-rain-hero" data-code-rain-hero aria-hidden="true">
+        <div class="code-rain-hero__media" aria-hidden="true">
+          <video
+            class="code-rain-hero__video"
+            data-code-rain-video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="../../assets/images/carmovie1.mov" />
+          </video>
+          <div class="code-rain-hero__overlay"></div>
+          <div class="code-rain-hero__vignette"></div>
+          <div class="code-rain-hero__sweep" data-code-rain-sweep></div>
+        </div>
+        <div class="code-rain-hero__headline-wrap" aria-hidden="true">
+          <h1 class="code-rain-hero__headline" data-i18n="page.rain_hero_line">Beyond Theory</h1>
+        </div>
+      </section>
+
+      <section class="code-breath-story" data-code-breath-story data-i18n-attr="aria-label:page.breath_story_aria">
+        <div class="code-breath-story__track">
+          <div class="code-breath-story__stage">
+            <canvas
+              class="code-breath-story__telemetry"
+              data-code-breath-telemetry
+              data-code-telemetry-wall
+              aria-hidden="true"
+            ></canvas>
+            <div class="code-breath-story__blackout" aria-hidden="true"></div>
+            <div class="code-breath-story__pulse" aria-hidden="true"></div>
+            <figure class="code-breath-story__image-wrap">
+              <img
+                class="code-breath-story__image"
+                src="../../assets/images/IMG_0705.JPG"
+                alt="A mountain lake beneath storm clouds with bright openings in the sky."
+                data-i18n-attr="alt:page.breath_story_image_alt"
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+            <div class="code-breath-story__veil" aria-hidden="true"></div>
+            <div class="code-breath-story__copy">
+              <p class="code-breath-story__line" data-i18n="page.breath_story_line">Connect with the real world</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="code-app-shell">
+        <section class="code-app-surface">
+          <aside class="code-sidebar" aria-label="Code docs sidebar">
+            <div class="code-sidebar-top">
+              <p class="code-shell-label">Code System</p>
+              <h1 data-code-shell-title>Repository Docs</h1>
+              <p class="meta code-sidebar-meta" data-code-sidebar-meta>
+                Schema-driven repository documentation with clear onboarding and deep module navigation.
+              </p>
+            </div>
+
+            <div class="code-sidebar-status">
+              <p class="code-summary-label" data-code-status-label>Source Status</p>
+              <p class="meta code-status-line" data-code-status-line>Waiting for source sync.</p>
+              <p class="code-source-mode">
+                <span class="code-source-label" data-code-mode-label>Mode</span>
+                <span class="code-badge" data-code-mode-badge data-state="placeholder">Placeholder</span>
+              </p>
+            </div>
+
+            <section class="code-sidebar-section" aria-label="Repository selection">
+              <div class="code-sidebar-section-head">
+                <p class="code-summary-label" data-code-repositories-label>Repositories</p>
+              </div>
+              <label class="code-control-label" for="code-repo-search-sidebar" data-code-search-label>Search</label>
+              <input
+                id="code-repo-search-sidebar"
+                class="code-control-input"
+                type="search"
+                data-code-repo-search
+                autocomplete="off"
+                placeholder="Search repositories"
+              />
+              <div class="code-repo-sidebar-list" data-code-repo-sidebar-list></div>
+            </section>
+
+            <section class="code-sidebar-section" aria-label="Module hierarchy">
+              <div class="code-sidebar-section-head">
+                <p class="code-summary-label" data-code-modules-label>Documentation Modules</p>
+              </div>
+              <div class="code-sidebar-entrypoints" aria-label="Primary entry points">
+                <button type="button" class="code-sidebar-entry-link" data-code-select-module="installation" data-code-entry-key="installation">
+                  Installation
+                </button>
+                <button type="button" class="code-sidebar-entry-link" data-code-select-module="quickstart-tutorial" data-code-entry-key="quickstart-tutorial">
+                  Quickstart Tutorial
+                </button>
+                <button type="button" class="code-sidebar-entry-link" data-code-select-module="learning-path" data-code-entry-key="learning-path">
+                  Learning Path
+                </button>
+              </div>
+              <div class="code-module-groups" data-code-module-groups></div>
+            </section>
+          </aside>
+
+          <section class="code-workspace" aria-live="polite">
+            <header class="code-workspace-head">
+              <p class="code-system-kicker" data-code-workspace-kicker>Repository Docs</p>
+              <h2 data-code-workspace-title>Loading repository</h2>
+              <p class="meta" data-code-workspace-intro>
+                Choose a repository and open a module to start onboarding or deeper system operations.
+              </p>
+              <p class="code-workspace-meta">
+                <span data-code-workspace-stack>--</span>
+                <span class="code-workspace-divider">·</span>
+                <span data-code-workspace-updated>--</span>
+                <a class="code-project-link" data-code-workspace-link href="#" target="_blank" rel="noopener noreferrer">Open on GitHub</a>
+              </p>
+            </header>
+
+            <section class="code-workspace-body">
+              <article class="code-module-panel" data-code-module-panel></article>
+            </section>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Software as a long-term compound advantage.</p>
+      </div>
+    </footer>
+
+    <script src="../../assets/js/main.js?v=20260411d" defer></script>
+    <script>
+      window.CODE_PORTFOLIO_CONFIG = {
+        githubUsername: "0928Jacksha",
+        featuredRepos: ["jacksha-website"],
+        includeRepos: [
+          "0928Jacksha/jacksha-website",
+          "personal-ai-agent-system",
+          "0928Jacksha/personal-ai-agent-system",
+          "jacksha",
+          "0928Jacksha/jacksha",
+          "desktop-tutorial",
+          "0928Jacksha/desktop-tutorial",
+          "Jack-Sha",
+          "0928Jacksha/Jack-Sha"
+        ],
+        excludeRepos: []
+      };
+    </script>
+    <script src="../../assets/js/code-system.js?v=20260411d" defer></script>
+  </body>
+</html>
