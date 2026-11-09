@@ -914,9 +914,7 @@ html[lang="zh-CN"] .country-zh {
   align-items: flex-start;
   padding: clamp(142px, 19vh, 206px) 0 clamp(68px, 11vh, 120px);
   background-color: #3f4348;
-  background-image:
-    linear-gradient(180deg, rgba(18, 18, 18, 0.18) 0%, rgba(18, 18, 18, 0.52) 62%, rgba(18, 18, 18, 0.72) 100%),
-    url("../images/home-hero-optimized.jpg");
+  background-image: url("../images/home-ocean.jpg");
   background-size: cover;
   background-position: center 40%;
 }
@@ -2462,9 +2460,8 @@ body.is-lightbox-open {
   }
 
   .hero-home {
-    background-image:
-      linear-gradient(180deg, rgba(18, 18, 18, 0.18) 0%, rgba(18, 18, 18, 0.52) 62%, rgba(18, 18, 18, 0.72) 100%),
-      url("../images/home-hero-optimized-mobile.jpg");
+    background-image: url("../images/home-ocean-mobile.jpg");
+    background-position: 29% center;
   }
 
   .travel-visual {
@@ -2652,7 +2649,7 @@ body.is-lightbox-open {
     min-height: 100vh;
     min-height: 100svh;
     padding: clamp(124px, 18vh, 158px) 0 clamp(56px, 10vh, 92px);
-    background-position: 56% 38%;
+    background-position: 29% center;
   }
 
   .travel-visual {
