@@ -2249,6 +2249,13 @@ html[lang="zh-CN"] body[data-page="work"] .code-workspace-head h2 {
   }
 }
 
+/* Keep the Chinese sidebar width override from restoring two columns on phones. */
+@media (max-width: 860px) {
+  html[lang="zh-CN"] body[data-page="work"] .code-app-surface {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 html[lang="zh-CN"] body[data-page="work"] .code-breath-story__line {
   font-family: var(--font-heading);
   font-size: clamp(1.26rem, 4vw, 3rem);

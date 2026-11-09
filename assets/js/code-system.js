@@ -908,11 +908,12 @@
 
   const CODE_WALL_INTRO_CONFIG = Object.freeze({
     triggerViewportRatio: 0,
-    enterHoldMs: 420,
+    enterHoldMs: 120,
     reducedEnterHoldMs: 120,
-    autoGenerationDurationMs: 9600,
+    autoGenerationDurationMs: 3600,
+    typingSpeedMultiplier: 8 / 3,
     reducedAutoGenerationDurationMs: 900,
-    generatedHoldMs: 780,
+    generatedHoldMs: 250,
     reducedGeneratedHoldMs: 150,
     completionThreshold: 0.96,
     completionMinStartedRatio: 0.94,
@@ -2882,7 +2883,7 @@
       const rawTimeProgress = (nowMs - intro.generationStartedAtMs) / Math.max(timings.autoGenerationDurationMs, 1);
       const introTimeProgress = clamp(rawTimeProgress, 0, CODE_WALL_INTRO_CONFIG.maxAutoGenerationOverrunRatio);
       const catchupBoost = rawTimeProgress > 1 ? lerp(1, 2.8, clamp(rawTimeProgress - 1, 0, 0.4) / 0.4) : 1;
-      const effectiveDeltaMs = deltaMs * catchupBoost;
+      const effectiveDeltaMs = deltaMs * CODE_WALL_INTRO_CONFIG.typingSpeedMultiplier * catchupBoost;
 
       maybeStartIntroRows(introTimeProgress);
       state.introOrderedRows.forEach((row) => {
