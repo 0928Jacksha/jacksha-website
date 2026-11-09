@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nexus — Personal Intelligence Workspace | Jack Sha</title>
     <meta name="description" content="Nexus is an independent SwiftUI iOS project for evidence-based reasoning, user-configured models, and reviewable AI proposals." />
-    <meta name="theme-color" content="#080a0c" />
+    <meta name="theme-color" content="#030405" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href="https://jacksha.com/pages/code/nexus.html" />
@@ -14,7 +14,7 @@
     <meta property="og:description" content="An independent iOS project connecting selected evidence, bounded reasoning, and human judgment." />
     <meta property="og:url" content="https://jacksha.com/pages/code/nexus.html" />
     <link rel="stylesheet" href="../../assets/css/main.css?v=20260411d" />
-    <link rel="stylesheet" href="../../assets/css/nexus.css?v=20261109v1" />
+    <link rel="stylesheet" href="../../assets/css/nexus.css?v=20261109flow1" />
   </head>
   <body data-page="nexus" class="nexus-page">
     <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
@@ -37,12 +37,15 @@
           <h1 id="nexus-title">Nexus<span aria-hidden="true">.</span></h1>
           <p data-nexus-en="Your evidence.
 Your intelligence.
-Your judgment." data-nexus-zh="你的证据。
-你的智能。
-你的判断。" class="nexus-hero__statement">Your evidence.
+Your judgment." data-nexus-zh="以证据为起点，
+用智能辅助思考，
+让判断属于自己。" class="nexus-hero__statement">Your evidence.
 Your intelligence.
 Your judgment.</p>
-          <p data-nexus-en="A personal workspace that turns selected materials into structured reasoning and reviewable next steps. Built in SwiftUI, powered by the models you choose." data-nexus-zh="将你选择的材料转化为结构化推理与可审阅的下一步。以 SwiftUI 构建，由你选择的模型驱动。" class="nexus-copy">A personal workspace that turns selected materials into structured reasoning and reviewable next steps. Built in SwiftUI, powered by the models you choose.</p>
+          <p data-nexus-en="A personal workspace that turns selected materials into structured reasoning and reviewable next steps. Built in SwiftUI, powered by the models you choose." data-nexus-zh="把材料整理成证据，让推理更清晰。
+再将行动建议交给你审阅。
+
+使用 SwiftUI 构建，连接你选择的模型。" class="nexus-copy" data-nexus-paragraphs>A personal workspace that turns selected materials into structured reasoning and reviewable next steps. Built in SwiftUI, powered by the models you choose.</p>
           <ul class="nexus-tags"><li>Swift / SwiftUI</li><li>iOS 17+</li><li>BYOK</li><li><span data-nexus-en="In development" data-nexus-zh="开发中">In development</span></li></ul>
           <a class="nexus-button" href="#interface"><span data-nexus-en="Explore the interface" data-nexus-zh="探索项目界面">Explore the interface</span> <span aria-hidden="true">↓</span></a>
         </div>
@@ -52,46 +55,58 @@ Your judgment.</p>
         <p data-nexus-en="01 / The idea" data-nexus-zh="01 / 项目理念" class="nexus-eyebrow">01 / The idea</p>
         <div><h2 id="nexus-idea"><span data-nexus-en="Keep the evidence close.
 Keep the decision yours." data-nexus-zh="让推理有据可循，
-让判断始终属于自己。">Keep the evidence close.
+让判断始终属于你。">Keep the evidence close.
 Keep the decision yours.</span></h2>
-        <p data-nexus-en="Nexus began as a private, Markdown-and-Git decision system: capture, structure, act, observe, and calibrate. The current iOS project explores how that evidence loop can become a focused, independent intelligence workspace." data-nexus-zh="Nexus 起源于以 Markdown 与 Git 为基础的私人决策系统：捕捉、整理、行动、观察、校准。如今的 iOS 项目，探索如何将这一证据闭环转化为专注、独立的智能工作空间。" class="nexus-copy">Nexus began as a private, Markdown-and-Git decision system: capture, structure, act, observe, and calibrate. The current iOS project explores how that evidence loop can become a focused, independent intelligence workspace.</p></div>
+        <p data-nexus-en="Nexus began as a private, Markdown-and-Git decision system: capture, structure, act, observe, and calibrate. The current iOS project explores how that evidence loop can become a focused, independent intelligence workspace." data-nexus-zh="Nexus 最初是一套基于 Markdown 与 Git 的私人决策系统。它将捕捉、整理、行动、观察与校准连成一个闭环。
+
+如今，iOS 应用让这套方法拥有了更专注、独立的交互界面。" class="nexus-copy" data-nexus-paragraphs>Nexus began as a private, Markdown-and-Git decision system: capture, structure, act, observe, and calibrate. The current iOS project explores how that evidence loop can become a focused, independent intelligence workspace.</p></div>
       </section>
       <section id="interface" class="nexus-section" aria-labelledby="nexus-interface">
-        <div class="nexus-section-heading"><div><p data-nexus-en="02 / Interface" data-nexus-zh="02 / 交互界面" class="nexus-eyebrow">02 / Interface</p><h2 id="nexus-interface"><span data-nexus-en="Three surfaces. One workspace." data-nexus-zh="三个界面，一个工作空间。">Three surfaces. One workspace.</span></h2></div>
-        <p data-nexus-en="Actual simulator captures from the project’s interface study. The connected nodes are navigation elements." data-nexus-zh="来自项目界面探索的实际模拟器截图。连接节点用于界面导航。" class="nexus-copy">Actual simulator captures from the project’s interface study. The connected nodes are navigation elements.</p></div>
+        <div class="nexus-section-heading"><div><p data-nexus-en="02 / Interface" data-nexus-zh="02 / 交互界面" class="nexus-eyebrow">02 / Interface</p><h2 id="nexus-interface"><span data-nexus-en="Three surfaces. One workspace." data-nexus-zh="三个界面，
+一个工作空间。">Three surfaces. One workspace.</span></h2></div>
+        <p data-nexus-en="Actual simulator captures from the project’s interface study. The connected nodes are navigation elements." data-nexus-zh="以下截图来自项目的 iOS 模拟器。
+
+从材料库到关系视图，再到模型设置，三个界面共同组成一个工作空间。" class="nexus-copy" data-nexus-paragraphs>Actual simulator captures from the project’s interface study. The connected nodes are navigation elements.</p></div>
         <div class="nexus-gallery">
-          <figure><a href="../../assets/images/nexus/library.webp" target="_blank" rel="noopener" aria-label="Library — open screenshot"><img src="../../assets/images/nexus/library.webp" alt="Nexus iOS library interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">01</span><h3><span data-nexus-en="Library" data-nexus-zh="材料库">Library</span></h3><p data-nexus-en="A visual home for the workspace’s materials and capability entry points." data-nexus-zh="以可视化方式组织工作空间的材料与能力入口。" class="nexus-copy">A visual home for the workspace’s materials and capability entry points.</p></figcaption></figure>
-          <figure><a href="../../assets/images/nexus/mind-map.webp" target="_blank" rel="noopener" aria-label="Connections — open screenshot"><img src="../../assets/images/nexus/mind-map.webp" alt="Nexus iOS connections interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">02</span><h3><span data-nexus-en="Connections" data-nexus-zh="连接">Connections</span></h3><p data-nexus-en="A spatial navigation study linking the workspace’s different surfaces." data-nexus-zh="以空间化导航串联工作空间的不同界面。" class="nexus-copy">A spatial navigation study linking the workspace’s different surfaces.</p></figcaption></figure>
-          <figure><a href="../../assets/images/nexus/settings.webp" target="_blank" rel="noopener" aria-label="Control — open screenshot"><img src="../../assets/images/nexus/settings.webp" alt="Nexus iOS control interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">03</span><h3><span data-nexus-en="Control" data-nexus-zh="掌控">Control</span></h3><p data-nexus-en="A dedicated surface for preferences, model configuration, and API credentials." data-nexus-zh="以独立设置界面承载偏好、模型配置与 API 凭据入口。" class="nexus-copy">A dedicated surface for preferences, model configuration, and API credentials.</p></figcaption></figure>
+          <figure><a href="../../assets/images/nexus/library.webp" target="_blank" rel="noopener" aria-label="Library — open screenshot"><img src="../../assets/images/nexus/library.webp" alt="Nexus iOS library interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">01</span><h3><span data-nexus-en="Library" data-nexus-zh="材料库">Library</span></h3><p data-nexus-en="A visual home for the workspace’s materials and capability entry points." data-nexus-zh="在一个地方整理材料，并进入相关功能。" class="nexus-copy" data-nexus-paragraphs>A visual home for the workspace’s materials and capability entry points.</p></figcaption></figure>
+          <figure><a href="../../assets/images/nexus/mind-map.webp" target="_blank" rel="noopener" aria-label="Connections — open screenshot"><img src="../../assets/images/nexus/mind-map.webp" alt="Nexus iOS connections interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">02</span><h3><span data-nexus-en="Connections" data-nexus-zh="关系视图">Connections</span></h3><p data-nexus-en="A spatial navigation study linking the workspace’s different surfaces." data-nexus-zh="通过空间化的节点导航，在不同界面之间切换。" class="nexus-copy" data-nexus-paragraphs>A spatial navigation study linking the workspace’s different surfaces.</p></figcaption></figure>
+          <figure><a href="../../assets/images/nexus/settings.webp" target="_blank" rel="noopener" aria-label="Control — open screenshot"><img src="../../assets/images/nexus/settings.webp" alt="Nexus iOS control interface" width="640" height="1391" loading="lazy" decoding="async" /></a><figcaption><span class="nexus-eyebrow">03</span><h3><span data-nexus-en="Control" data-nexus-zh="设置与控制">Control</span></h3><p data-nexus-en="A dedicated surface for preferences, model configuration, and API credentials." data-nexus-zh="管理使用偏好、模型配置与 API 凭据。" class="nexus-copy" data-nexus-paragraphs>A dedicated surface for preferences, model configuration, and API credentials.</p></figcaption></figure>
         </div>
       </section>
       <section class="nexus-section" aria-labelledby="nexus-capabilities">
-        <p data-nexus-en="03 / Current implementation" data-nexus-zh="03 / 当前实现" class="nexus-eyebrow">03 / Current implementation</p><h2 id="nexus-capabilities"><span data-nexus-en="From selected sources to a reviewable proposal." data-nexus-zh="从选定材料，到可审阅的提案。">From selected sources to a reviewable proposal.</span></h2>
+        <p data-nexus-en="03 / Current implementation" data-nexus-zh="03 / 当前实现" class="nexus-eyebrow">03 / Current implementation</p><h2 id="nexus-capabilities"><span data-nexus-en="From selected sources to a reviewable proposal." data-nexus-zh="从选定材料，
+到可审阅的行动建议。">From selected sources to a reviewable proposal.</span></h2>
         <div class="nexus-capabilities">
-          <article><span class="nexus-eyebrow">01</span><h3><span data-nexus-en="Choose the evidence" data-nexus-zh="选择证据">Choose the evidence</span></h3><p data-nexus-en="Import supported text or code files, inspect their snapshots, and explicitly select the material for each task." data-nexus-zh="导入受支持的文本或代码文件，检查快照，并为每项任务明确选择所需材料。" class="nexus-copy">Import supported text or code files, inspect their snapshots, and explicitly select the material for each task.</p></article>
-          <article><span class="nexus-eyebrow">02</span><h3><span data-nexus-en="Choose the model" data-nexus-zh="选择模型">Choose the model</span></h3><p data-nexus-en="Configure your own model and endpoint. API credentials stay in the device’s Keychain; requests run independently of a desktop host." data-nexus-zh="配置自己的模型与服务端点。API 凭据保存在设备 Keychain 中，请求可独立于桌面宿主运行。" class="nexus-copy">Configure your own model and endpoint. API credentials stay in the device’s Keychain; requests run independently of a desktop host.</p></article>
-          <article><span class="nexus-eyebrow">03</span><h3><span data-nexus-en="Review the reasoning" data-nexus-zh="审阅推理">Review the reasoning</span></h3><p data-nexus-en="Read structured facts, assumptions, alternatives, counterarguments, and proposed actions, with references back to selected source snapshots." data-nexus-zh="审阅结构化事实、假设、备选方案、反方观点与行动提案，并通过引用回看所选材料快照。" class="nexus-copy">Read structured facts, assumptions, alternatives, counterarguments, and proposed actions, with references back to selected source snapshots.</p></article>
-          <article><span class="nexus-eyebrow">04</span><h3><span data-nexus-en="Bound the execution" data-nexus-zh="约束执行">Bound the execution</span></h3><p data-nexus-en="Review the recipient, sources, and limits before submission. The foreground harness supports finite model calls and read-only tools over selected files." data-nexus-zh="提交前审阅接收方、材料与执行限制。前台执行框架支持有限次数的模型调用，以及针对所选文件的只读工具。" class="nexus-copy">Review the recipient, sources, and limits before submission. The foreground harness supports finite model calls and read-only tools over selected files.</p></article>
+          <article><span class="nexus-eyebrow">01</span><h3><span data-nexus-en="Choose the evidence" data-nexus-zh="选择证据">Choose the evidence</span></h3><p data-nexus-en="Import supported text or code files, inspect their snapshots, and explicitly select the material for each task." data-nexus-zh="导入支持的文本或代码文件，查看材料快照。每次任务开始前，由你明确选择要使用的内容。" class="nexus-copy" data-nexus-paragraphs>Import supported text or code files, inspect their snapshots, and explicitly select the material for each task.</p></article>
+          <article><span class="nexus-eyebrow">02</span><h3><span data-nexus-en="Choose the model" data-nexus-zh="选择模型">Choose the model</span></h3><p data-nexus-en="Configure your own model and endpoint. API credentials stay in the device’s Keychain; requests run independently of a desktop host." data-nexus-zh="连接自己的模型与服务端点。API 凭据保存在设备的钥匙串（Keychain）中，请求可直接从手机发出，无需桌面宿主。" class="nexus-copy" data-nexus-paragraphs>Configure your own model and endpoint. API credentials stay in the device’s Keychain; requests run independently of a desktop host.</p></article>
+          <article><span class="nexus-eyebrow">03</span><h3><span data-nexus-en="Review the reasoning" data-nexus-zh="审阅推理">Review the reasoning</span></h3><p data-nexus-en="Read structured facts, assumptions, alternatives, counterarguments, and proposed actions, with references back to selected source snapshots." data-nexus-zh="把事实、假设、备选方案与反方观点分开阅读，再审阅行动建议。每条引用都能回到所选材料的快照。" class="nexus-copy" data-nexus-paragraphs>Read structured facts, assumptions, alternatives, counterarguments, and proposed actions, with references back to selected source snapshots.</p></article>
+          <article><span class="nexus-eyebrow">04</span><h3><span data-nexus-en="Bound the execution" data-nexus-zh="约束执行">Bound the execution</span></h3><p data-nexus-en="Review the recipient, sources, and limits before submission. The foreground harness supports finite model calls and read-only tools over selected files." data-nexus-zh="提交前，确认接收方、材料范围与执行限制。前台执行框架对模型调用次数设限，工具仅可读取你选中的文件。" class="nexus-copy" data-nexus-paragraphs>Review the recipient, sources, and limits before submission. The foreground harness supports finite model calls and read-only tools over selected files.</p></article>
         </div>
       </section>
       <section class="nexus-section nexus-intro" aria-labelledby="nexus-engineering">
         <p data-nexus-en="04 / Engineering" data-nexus-zh="04 / 工程设计" class="nexus-eyebrow">04 / Engineering</p>
         <div><h2 id="nexus-engineering"><span data-nexus-en="A native surface.
 Replaceable layers." data-nexus-zh="原生界面，
-可替换的分层架构。">A native surface.
+分层构建。">A native surface.
 Replaceable layers.</span></h2>
-        <p data-nexus-en="The app separates presentation, reasoning contracts, execution, and provider access. This keeps the interface independent from request construction and makes the reasoning flow testable with offline fixtures." data-nexus-zh="应用将界面、推理契约、执行流程与模型接入分离，让交互界面独立于请求构建，并通过离线测试数据验证推理流程。" class="nexus-copy">The app separates presentation, reasoning contracts, execution, and provider access. This keeps the interface independent from request construction and makes the reasoning flow testable with offline fixtures.</p>
-        <ol class="nexus-layers"><li><span>01</span><strong>SwiftUI</strong><span data-nexus-en="Native interaction &amp; presentation" data-nexus-zh="原生交互与界面呈现">Native interaction &amp; presentation</span></li><li><span>02</span><strong>Intelligence</strong><span data-nexus-en="Evidence &amp; report contracts" data-nexus-zh="证据与报告契约">Evidence &amp; report contracts</span></li><li><span>03</span><strong>Harness</strong><span data-nexus-en="Finite execution &amp; receipts" data-nexus-zh="有限执行与过程回执">Finite execution &amp; receipts</span></li><li><span>04</span><strong>Providers</strong><span data-nexus-en="HTTP adapters &amp; device Keychain" data-nexus-zh="HTTP 适配与设备 Keychain">HTTP adapters &amp; device Keychain</span></li></ol></div>
+        <p data-nexus-en="The app separates presentation, reasoning contracts, execution, and provider access. This keeps the interface independent from request construction and makes the reasoning flow testable with offline fixtures." data-nexus-zh="界面呈现、推理契约、执行流程与模型接入各自分层。界面因此无需承担请求构建的职责，各层也能独立替换。
+
+推理流程可通过离线测试数据验证。" class="nexus-copy" data-nexus-paragraphs>The app separates presentation, reasoning contracts, execution, and provider access. This keeps the interface independent from request construction and makes the reasoning flow testable with offline fixtures.</p>
+        <ol class="nexus-layers"><li><span>01</span><strong>SwiftUI</strong><span data-nexus-en="Native interaction &amp; presentation" data-nexus-zh="原生交互与界面呈现">Native interaction &amp; presentation</span></li><li><span>02</span><strong data-nexus-en="Intelligence" data-nexus-zh="推理契约">Intelligence</strong><span data-nexus-en="Evidence &amp; report contracts" data-nexus-zh="证据结构与报告规范">Evidence &amp; report contracts</span></li><li><span>03</span><strong data-nexus-en="Harness" data-nexus-zh="执行框架">Harness</strong><span data-nexus-en="Finite execution &amp; receipts" data-nexus-zh="限定执行次数，保留过程记录">Finite execution &amp; receipts</span></li><li><span>04</span><strong data-nexus-en="Providers" data-nexus-zh="模型接入">Providers</strong><span data-nexus-en="HTTP adapters &amp; device Keychain" data-nexus-zh="连接模型服务，保护设备凭据">HTTP adapters &amp; device Keychain</span></li></ol></div>
       </section>
       <section class="nexus-section nexus-status" aria-labelledby="nexus-status">
         <p data-nexus-en="05 / Project status" data-nexus-zh="05 / 项目状态" class="nexus-eyebrow">05 / Project status</p>
-        <h2 id="nexus-status"><span data-nexus-en="An ongoing software experiment." data-nexus-zh="持续演进中的软件实验。">An ongoing software experiment.</span></h2>
-        <p data-nexus-en="The native app, model gateway, and bounded execution paths are implemented and exercised with offline fixtures. Live-provider acceptance and real-world usefulness remain to be verified. This page presents the project; public app distribution is not currently available." data-nexus-zh="原生应用、模型网关与有限执行路径已实现，并通过离线测试数据进行验证。真实服务商接入验收与实际使用价值仍待验证。此页面用于项目展示，当前尚未提供公开应用下载。" class="nexus-copy">The native app, model gateway, and bounded execution paths are implemented and exercised with offline fixtures. Live-provider acceptance and real-world usefulness remain to be verified. This page presents the project; public app distribution is not currently available.</p>
+        <h2 id="nexus-status"><span data-nexus-en="An ongoing software experiment." data-nexus-zh="一个持续演进的项目。">An ongoing software experiment.</span></h2>
+        <p data-nexus-en="The native app, model gateway, and bounded execution paths are implemented and exercised with offline fixtures. Live-provider acceptance and real-world usefulness remain to be verified. This page presents the project; public app distribution is not currently available." data-nexus-zh="原生应用、模型网关与有限执行流程已实现，并通过离线测试数据进行验证。
+
+真实模型服务的接入验收，以及长期使用中的实际价值，仍需进一步验证。
+
+本页用于展示项目，目前尚未提供公开下载。" class="nexus-copy" data-nexus-paragraphs>The native app, model gateway, and bounded execution paths are implemented and exercised with offline fixtures. Live-provider acceptance and real-world usefulness remain to be verified. This page presents the project; public app distribution is not currently available.</p>
         <a class="nexus-button" href="./index.html"><span data-nexus-en="Back to Code" data-nexus-zh="返回 Code">Back to Code</span> <span aria-hidden="true">↗</span></a>
       </section>
     </main>
     <footer class="site-footer"><div class="container"><p>Nexus / Jack Sha</p><p data-nexus-en="Evidence informs. You decide." data-nexus-zh="以证据辅助思考，由你做出判断。">Evidence informs. You decide.</p></div></footer>
     <script src="../../assets/js/main.js?v=20260411d" defer></script>
-    <script src="../../assets/js/nexus.js?v=20261109v1" defer></script>
+    <script src="../../assets/js/nexus.js?v=20261109flow1" defer></script>
   </body>
 </html>

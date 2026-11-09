@@ -2,7 +2,7 @@
 .nexus-feature,
 .nexus-page {
   --nexus-text: #eceeec;
-  --nexus-muted: #a3aaa9;
+  --nexus-muted: #b1b8b5;
   --nexus-line: rgba(229, 238, 235, .15);
   --nexus-accent: #c1d8cb;
   color: var(--nexus-text);
@@ -15,7 +15,10 @@
   grid-template-columns: 1fr 1fr;
   gap: clamp(32px, 6vw, 100px);
   align-items: center;
-  background: radial-gradient(ellipse at 78% 55%, #202a29 0%, #0b1013 45%, #090d12 75%);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #030405;
   border-block: 1px solid var(--nexus-line);
 }
 .nexus-feature__copy { display: grid; justify-items: start; gap: 22px; }
@@ -44,8 +47,8 @@
 .nexus-sidebar-link span:first-child { font-weight: 600; }
 .nexus-sidebar-link span:last-child { font-size: 11px; color: #b6c7bd; }
 .nexus-sidebar-link:hover { background: #c1d8cb14; }
-.nexus-page { background: #080a0c; color-scheme: dark; --text: #eceeec; --border-soft: rgba(229, 238, 235, .15); }
-.nexus-page .site-header { background: #080a0cee; border-color: var(--nexus-line); }
+.nexus-page { background: #030405; isolation: isolate; color-scheme: dark; --text: #eceeec; --border-soft: rgba(229, 238, 235, .15); }
+.nexus-page .site-header { background: #030405b8; backdrop-filter: blur(18px); border-color: var(--nexus-line); }
 .nexus-page .nav a,
 .nexus-page .lang-toggle button { color: #c2c7c5; }
 .nexus-page .nav-toggle { color: var(--nexus-text); background: transparent; border: 1px solid #68756e; }
@@ -83,7 +86,7 @@
 .nexus-section-heading > p { max-width: 34ch; font-size: 13px; }
 .nexus-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
 .nexus-gallery figure { margin: 0; min-width: 0; }
-.nexus-gallery figure > a { display: block; padding: 24px; border: 1px solid var(--nexus-line); border-radius: 24px; background: linear-gradient(145deg, #202724, #0d1012 65%); }
+.nexus-gallery figure > a { display: block; padding: 24px; border: 1px solid var(--nexus-line); border-radius: 24px; background: linear-gradient(145deg, #252a2980, #070909b8 65%); }
 .nexus-gallery img { display: block; width: 100%; height: auto; border-radius: 19px; border: 1px solid #454c49; }
 .nexus-gallery figcaption { margin-top: 26px; }
 .nexus-gallery h3 { margin: 8px 0; font-size: 20px; font-weight: 450; }
@@ -130,4 +133,102 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .nexus-button { transition: none; }
+}
+
+/* A slow obsidian surface shared by the project page and its Code introduction. */
+.nexus-flow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 85% 35%, #343c38 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 95%, #1a201e 0%, transparent 60%),
+    #030405;
+}
+.nexus-page > .nexus-flow { position: fixed; }
+.nexus-flow canvas { display: block; width: 100%; height: 100%; }
+.nexus-flow[data-renderer="fallback"] canvas { display: none; }
+.nexus-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #0009 0%, #0004 42%, transparent 78%),
+    linear-gradient(180deg, #0003, transparent 26%, transparent 76%, #0006);
+}
+.nexus-feature > .nexus-feature__copy,
+.nexus-feature > .nexus-feature__visual,
+.nexus-page > .nexus-detail,
+.nexus-page > .site-footer { position: relative; z-index: 1; }
+.nexus-page .site-footer { background: #03040566; }
+.nexus-copy__paragraph { display: block; white-space: pre-line; }
+.nexus-copy__paragraph + .nexus-copy__paragraph { margin-top: .85em; }
+
+/* Chinese needs its own rhythm instead of the tightly tracked English display style. */
+:lang(zh) .nexus-page,
+:lang(zh) .nexus-feature {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  line-break: strict;
+  word-break: normal;
+  text-align: left;
+}
+:lang(zh) .nexus-copy {
+  max-width: 34em;
+  font-size: 16px;
+  line-height: 1.95;
+  letter-spacing: .025em;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+:lang(zh) .nexus-eyebrow {
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: .1em;
+  text-transform: none;
+}
+:lang(zh) .nexus-page .nexus-hero__statement {
+  font-size: clamp(27px, 2.65vw, 38px);
+  line-height: 1.58;
+  letter-spacing: .035em;
+  font-weight: 400;
+}
+:lang(zh) .nexus-page .nexus-section h2,
+:lang(zh) .nexus-page main h2:not(.sr-only):hover {
+  max-width: 20em;
+  font-size: clamp(26px, 2.7vw, 38px);
+  line-height: 1.5;
+  letter-spacing: .035em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+:lang(zh) .nexus-page .nexus-section h3,
+:lang(zh) .nexus-page main h3:not(.sr-only):hover {
+  font-size: 21px;
+  line-height: 1.6;
+  letter-spacing: .025em;
+  font-weight: 500;
+}
+:lang(zh) .nexus-section-heading { align-items: flex-end; }
+:lang(zh) .nexus-section-heading > .nexus-copy { max-width: 20em; font-size: 15px; }
+:lang(zh) .nexus-gallery .nexus-copy { max-width: 22em; font-size: 15px; }
+:lang(zh) .nexus-capabilities .nexus-copy { max-width: 30em; }
+:lang(zh) .nexus-layers li { font-size: 14px; line-height: 1.85; letter-spacing: .015em; }
+:lang(zh) .nexus-feature__subtitle { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.55; letter-spacing: .035em; }
+:lang(zh) .nexus-button { font-size: 14px; letter-spacing: .04em; }
+:lang(zh) .nexus-tags li { font-size: 12px; line-height: 1.5; }
+:lang(zh) .nexus-hero__visual figcaption { font-size: 12px; line-height: 1.7; letter-spacing: .04em; }
+:lang(zh) .nexus-status .nexus-copy { max-width: 44em; }
+@media (max-width: 860px) {
+  :lang(zh) .nexus-section-heading > .nexus-copy { margin-top: 20px; max-width: 34em; }
+}
+@media (max-width: 580px) {
+  :lang(zh) .nexus-hero__copy { gap: 24px; }
+  :lang(zh) .nexus-page .nexus-hero__statement { font-size: clamp(25px, 6.8vw, 30px); line-height: 1.65; }
+  :lang(zh) .nexus-copy { font-size: 15px; line-height: 1.95; letter-spacing: .025em; }
+  :lang(zh) .nexus-page .nexus-section h2 { font-size: 26px; line-height: 1.55; }
+  :lang(zh) .nexus-layers li { grid-template-columns: 24px 96px minmax(0, 1fr); font-size: 13px; gap: 10px; }
+  :lang(zh) .nexus-gallery .nexus-copy { font-size: 15px; }
 }
