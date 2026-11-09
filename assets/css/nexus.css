@@ -135,19 +135,18 @@
   .nexus-button { transition: none; }
 }
 
-/* A slow obsidian surface shared by the project page and its Code introduction. */
+/* A black-dominant halftone fluid shared by the project page and its introduction. */
 .nexus-flow {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 85% 35%, #343c38 0%, transparent 48%),
-    radial-gradient(ellipse at 50% 95%, #1a201e 0%, transparent 60%),
-    #030405;
+  background: #010101;
 }
 .nexus-page > .nexus-flow { position: fixed; }
+.nexus-page > .nexus-flow::after { background: #000b; }
+.nexus-feature > .nexus-flow::after { background: linear-gradient(90deg, #000c 0%, #000b 46%, #0004 78%, #0002); }
 .nexus-flow canvas { display: block; width: 100%; height: 100%; }
 .nexus-flow[data-renderer="fallback"] canvas { display: none; }
 .nexus-flow::after {
@@ -155,7 +154,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #0009 0%, #0004 42%, transparent 78%),
+    linear-gradient(90deg, #0008 0%, #0003 42%, transparent 78%),
     linear-gradient(180deg, #0003, transparent 26%, transparent 76%, #0006);
 }
 .nexus-feature > .nexus-feature__copy,
@@ -222,9 +221,11 @@
 :lang(zh) .nexus-hero__visual figcaption { font-size: 12px; line-height: 1.7; letter-spacing: .04em; }
 :lang(zh) .nexus-status .nexus-copy { max-width: 44em; }
 @media (max-width: 860px) {
+  .nexus-feature > .nexus-flow::after { background: #000c; }
   :lang(zh) .nexus-section-heading > .nexus-copy { margin-top: 20px; max-width: 34em; }
 }
 @media (max-width: 580px) {
+  .nexus-page > .nexus-flow::after { background: #000c; }
   :lang(zh) .nexus-hero__copy { gap: 24px; }
   :lang(zh) .nexus-page .nexus-hero__statement { font-size: clamp(25px, 6.8vw, 30px); line-height: 1.65; }
   :lang(zh) .nexus-copy { font-size: 15px; line-height: 1.95; letter-spacing: .025em; }
